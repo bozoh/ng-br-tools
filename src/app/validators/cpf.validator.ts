@@ -17,10 +17,13 @@ import { Validator, NG_VALIDATORS, FormControl } from '@angular/forms';
 export class CPFValidator implements Validator {
 
   validate(c: FormControl): { [key: string]: any } {
-    const value = c.value;
+    if (c.value && c.value.length > 0) {
+      const regex = /\.|-/gi;
+      const value = c.value.replace(regex, '');
 
-    if (this.isValid(value)) {
-      return null;
+      if (this.isValid(value)) {
+        return null;
+      }
     }
 
     return {
