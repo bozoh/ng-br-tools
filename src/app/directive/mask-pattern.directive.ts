@@ -1,38 +1,54 @@
-import { Directive, Input, HostBinding, HostListener } from '@angular/core';
+import { Directive, Input, HostBinding, HostListener, OnInit } from '@angular/core';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: '[mask-pattern]'
 })
-export class MaskPatternDirective {
+export class MaskPatternDirective implements OnInit {
+
   // tslint:disable-next-line:no-input-rename
   @Input('mask-pattern') pattern = '';
-
+  private patternStr: string[] = [];
+  private patternArr: string[] = [];
 
   constructor() { }
 
-  @HostListener('keyup', ['$event']) onkeyup(e) {
-    let newValue = '';
-    const input = e.target;
-    if (input.value.length <= this.pattern.length) {
-      for (let i = 0; i < input.value.length; i++) {
-        if (this.pattern.charAt(i) === '#') {
-          newValue += input.value.charAt(i);
-        } else {
-           if (input.value.charAt(i) !== this.pattern.charAt(i)) {
-             newValue += this.pattern.charAt(i);
-           }
-           newValue += input.value.charAt(i);
-        }
-      }
-      console.log(newValue);
-      input.value = newValue;
+  ngOnInit(): void {
+    // Obtem os caracteres da mascara, diferente de #,
+    // que vai ser usado para limpar a formatação
+    this.patternStr = this.pattern.replace(/#/gi, '').split('');
+    // Tranfomando a máscara em um array, mais fácil
+    // para formatar o texto
+    this.patternArr = this.pattern.split('');
+  }
 
-    } else {
-      e.preventDefault();
-      input.value = input.value.slice(0, -1);
-      return e;
+  private clearFormat(str: string): string {
+    let retVal = str;
+    for (const c of this.patternStr) {
+      retVal = retVal.replace(c, '');
     }
+
+    return retVal;
+  }
+
+  @HostListener('input', ['$event'])  onkeyup(e) {
+    // Copiando o valor da máscara
+    const pttr = [...this.patternArr];
+    const input = e.target;
+    // Limpando a formatação, e copiando o valor do input
+    // e tranformando em um array
+    const inputValue = this.clearFormat(input.value).split('');
+    let pttrChar = '';
+    let newValue = '';
+    while (inputValue.length > 0 && pttr.length > 0) {
+      pttrChar = pttr.shift();
+      if (pttrChar === '#') {
+        newValue += inputValue.shift();
+      } else {
+        newValue += pttrChar;
+      }
+    }
+    input.value = newValue;
   }
 
 }
