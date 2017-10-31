@@ -12,7 +12,7 @@ import { tick } from '@angular/core/testing';
     <input name="test-cpf-mask" name="test-cpf-mask" type="text"
       [mask-pattern]="'###.###.###-##'" />
     <input name="test-cnpj-mask" type="text"
-      [mask-pattern]="'##.###.###/####-##'"  />
+      [mask-pattern]="'##.###.###/####-##'" [showPlaceholder]="false"  />
     <input name="test-cel-mask" type="text"
       [mask-pattern]="'+## (##) #-####-####'" />
     <input name="no-mask" type="text" />
@@ -147,4 +147,12 @@ describe('Directive: Teste da Diretiva mask-pattern', () => {
     expect(input.value).toBe('+00 (00) 0-0000-0000');
 
   });
+
+  it('Testando se o placeholder aparece ou não', () => {
+    const input1 = maskedInputs[0].nativeElement as HTMLInputElement;
+    const input2 = maskedInputs[1].nativeElement as HTMLInputElement;
+    expect(input1.placeholder).toBe('###.###.###-##');
+    expect(input2.placeholder).toBe('');
+  });
+
 });

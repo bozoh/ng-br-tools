@@ -8,7 +8,7 @@ export class MaskPatternDirective implements OnInit {
 
   // tslint:disable-next-line:no-input-rename
   @Input('mask-pattern') pattern = '';
-  @Input() showPlaceHolder = true;
+  @Input() showPlaceholder = true;
   private patternStr: string[] = [];
   private patternArr: string[] = [];
 
@@ -21,7 +21,7 @@ export class MaskPatternDirective implements OnInit {
     // Tranfomando a máscara em um array, mais fácil
     // para formatar o texto
     this.patternArr = this.pattern.split('');
-    if (this.showPlaceHolder) {
+    if (this.showPlaceholder) {
       this.el.nativeElement.placeholder = this.pattern;
     }
 
