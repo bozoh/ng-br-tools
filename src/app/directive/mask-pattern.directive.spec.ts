@@ -14,7 +14,7 @@ import { tick } from '@angular/core/testing';
     <input name="test-cnpj-mask" type="text"
       [mask-pattern]="'##.###.###/####-##'" [showPlaceholder]="false"  />
     <input name="test-cel-mask" type="text"
-      [mask-pattern]="'+## (##) #-####-####'" />
+      [mask-pattern]="'+## (##) #-####-####'" placeholder="+00 (00) 0-0000-0000" />
     <input name="no-mask" type="text" />
   `
 })
@@ -151,8 +151,14 @@ describe('Directive: Teste da Diretiva mask-pattern', () => {
   it('Testando se o placeholder aparece ou não', () => {
     const input1 = maskedInputs[0].nativeElement as HTMLInputElement;
     const input2 = maskedInputs[1].nativeElement as HTMLInputElement;
+    const input3 = maskedInputs[2].nativeElement as HTMLInputElement;
+
+    // Comportamento Padrão
     expect(input1.placeholder).toBe('###.###.###-##');
+    // Se o showPlaceholde = false
     expect(input2.placeholder).toBe('');
+    // Se já tiver ou placeholder definido
+    expect(input3.placeholder).toBe('+00 (00) 0-0000-0000');
   });
 
 });

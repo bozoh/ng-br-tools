@@ -21,7 +21,7 @@ export class MaskPatternDirective implements OnInit {
     // Tranfomando a máscara em um array, mais fácil
     // para formatar o texto
     this.patternArr = this.pattern.split('');
-    if (this.showPlaceholder) {
+    if (this.showPlaceholder && !this.el.nativeElement.placeholder) {
       this.el.nativeElement.placeholder = this.pattern;
     }
 
