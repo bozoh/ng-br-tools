@@ -157,7 +157,7 @@ describe('Directive: Teste da Diretiva mask-pattern', () => {
     expect(input1.placeholder).toBe('###.###.###-##');
     // Se o showPlaceholde = false
     expect(input2.placeholder).toBe('');
-    // Se já tiver ou placeholder definido
+    // Se já tiver um placeholder definido
     expect(input3.placeholder).toBe('+00 (00) 0-0000-0000');
   });
 
