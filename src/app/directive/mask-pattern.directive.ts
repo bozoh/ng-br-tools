@@ -1,4 +1,4 @@
-import { Directive, Input, HostBinding, HostListener, OnInit } from '@angular/core';
+import { Directive, Input, HostBinding, HostListener, OnInit, ElementRef } from '@angular/core';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
@@ -8,10 +8,11 @@ export class MaskPatternDirective implements OnInit {
 
   // tslint:disable-next-line:no-input-rename
   @Input('mask-pattern') pattern = '';
+  @Input() showPlaceHolder = true;
   private patternStr: string[] = [];
   private patternArr: string[] = [];
 
-  constructor() { }
+  constructor(private el: ElementRef) { }
 
   ngOnInit(): void {
     // Obtem os caracteres da mascara, diferente de #,
@@ -20,6 +21,10 @@ export class MaskPatternDirective implements OnInit {
     // Tranfomando a máscara em um array, mais fácil
     // para formatar o texto
     this.patternArr = this.pattern.split('');
+    if (this.showPlaceHolder) {
+      this.el.nativeElement.placeholder = this.pattern;
+    }
+
   }
 
   private clearFormat(str: string): string {
