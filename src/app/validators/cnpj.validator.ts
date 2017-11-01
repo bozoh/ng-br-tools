@@ -4,31 +4,31 @@ import { BrValidator } from '../locallib/br-validator.class';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[cpfValidator][ngModel],[cpfValidator][formControl],[cpfValidator][formControlName]',
+  selector: '[cnpjValidator][ngModel],[cnpjValidator][formControl],[cnpjValidator][formControlName]',
   providers: [
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => CPFValidator),
+      useExisting: forwardRef(() => CNPJValidator),
       multi: true
     }
   ]
 })
 
 // tslint:disable-next-line:directive-class-suffix
-export class CPFValidator implements Validator {
+export class CNPJValidator implements Validator {
 
   validate(c: FormControl): { [key: string]: any } {
     if (c.value && c.value.length > 0) {
-      const regex = /\.|-/gi;
+      const regex = /\.|-|\//gi;
       const value = c.value.replace(regex, '');
 
-      if (BrValidator.validaCpf(value)) {
+      if (BrValidator.validaCnpj(value)) {
         return null;
       }
     }
 
     return {
-      CPFValidator: {
+      CNPJValidator: {
         valid: false
       }
     };
