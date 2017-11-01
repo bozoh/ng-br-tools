@@ -4,13 +4,14 @@ export class BrValidator {
     let cpfAux = '';
     let digito1 = '';
     let digito2 = '';
+    const brValidatorUtils = new BrValidatotUtils(cpf);
 
-    if (!BrValidator.checkCanBeValid(cpf, 'cpf')) {
+    if (!brValidatorUtils.isValid()) {
       return false;
     }
-    cpfAux = BrValidator.removeVerificador(cpf);
-    digito1 = BrValidator.calculaDigitoVerificador(cpfAux);
-    digito2 = BrValidator.calculaDigitoVerificador(cpfAux + digito1);
+    cpfAux = brValidatorUtils.removeDigitosVerificador();
+    digito1 = brValidatorUtils.calculaDigitoVerificador(cpfAux);
+    digito2 = brValidatorUtils.calculaDigitoVerificador(cpfAux + digito1);
     return cpf === cpfAux + digito1 + digito2;
   }
 
@@ -19,20 +20,32 @@ export class BrValidator {
     let digito1 = '';
     let digito2 = '';
 
-    if (!BrValidator.checkCanBeValid(cnpj, 'cnpj')) {
+    const brValidatorUtils = new BrValidatotUtils(cnpj);
+    if (!brValidatorUtils.isValid()) {
       return false;
     }
-    cnpjAux = BrValidator.removeVerificador(cnpj);
-    digito1 = BrValidator.calculaDigitoVerificador(cnpjAux);
-    digito2 = BrValidator.calculaDigitoVerificador(cnpjAux + digito1);
+    cnpjAux = brValidatorUtils.removeDigitosVerificador();
+    digito1 = brValidatorUtils.calculaDigitoVerificador(cnpjAux);
+    digito2 = brValidatorUtils.calculaDigitoVerificador(cnpjAux + digito1);
     return cnpj === cnpjAux + digito1 + digito2;
 
   }
+}
 
-  private static calculaDigitoVerificador(str: string): string {
+class BrValidatotUtils {
+
+  constructor(private str: string) {}
+
+  isValid(): boolean {
+    return this.checkCanBeValid(this.str, 'cpf') ||
+      this.checkCanBeValid(this.str, 'cnpj');
+  }
+
+  calculaDigitoVerificador(str: string): string {
     let tblPesos: number[] = [];
     let digito: number;
     let somatorio = 0;
+
 
     // Definindo que tabela de pesos
     // devo usar, cnpj ou cpf
@@ -71,24 +84,24 @@ export class BrValidator {
     }
 
 
-  private static removeVerificador(str: string): string {
-    return str.substring(0, str.length - 2);
+  removeDigitosVerificador(): string {
+    return this.str.substring(0, this.str.length - 2);
   }
 
-  private static checkCanBeValid(value: string, opt: string): boolean {
+  private checkCanBeValid(value: string, opt: string): boolean {
     if (value == null || value.length === 0) {
       return false;
     }
     switch (opt) {
       case 'cpf':
-        return BrValidator.canBeValidCpf(value);
+        return this.canBeValidCpf(value);
       case 'cnpj':
-        return BrValidator.canBeValidCnpj(value);
+        return this.canBeValidCnpj(value);
     }
     return false;
   }
 
-  private static canBeValidCpf(cpf: string): boolean {
+  private canBeValidCpf(cpf: string): boolean {
     if (cpf.length !== 11) {
       return false;
     }
@@ -107,7 +120,7 @@ export class BrValidator {
     return true;
   }
 
-  private static canBeValidCnpj(cnpj: string): boolean {
+  private canBeValidCnpj(cnpj: string): boolean {
     if (cnpj.length !== 14) {
       return false;
     }
@@ -125,4 +138,6 @@ export class BrValidator {
     }
     return true;
   }
+
+
 }
