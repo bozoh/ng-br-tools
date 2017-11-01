@@ -2,7 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { CPFValidator } from './cpf.validator';
 import { FormControl } from '@angular/forms';
 
-describe('Directive: CPFValidator', () => {
+describe('Validator: CPFValidator', () => {
   // tslint:disable-next-line:prefer-const
   let cpfValidatorDirective: CPFValidator;
   const invalidResponse = {
