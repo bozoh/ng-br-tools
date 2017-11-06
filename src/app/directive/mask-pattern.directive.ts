@@ -3,12 +3,14 @@ import { StringFormatter } from '../locallib/string-formatter.class';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[mask-pattern]'
+  selector: '[placeholder]'
+  // selector: '[mask-pattern]'
 })
 export class MaskPatternDirective implements OnInit {
 
   // tslint:disable-next-line:no-input-rename
-  @Input('mask-pattern') pattern = '';
+  @Input('placeholder') pattern = '';
+  // @Input('mask-pattern') pattern = '';
   @Input() showPlaceholder = true;
   private patternStr: string[] = [];
   private patternArr: string[] = [];

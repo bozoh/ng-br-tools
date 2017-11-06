@@ -9,11 +9,11 @@ import { StringFormatter } from '../locallib/string-formatter.class';
   // tslint:disable-next-line:component-selector
   template: `
     <input name="test-cpf-mask" name="test-cpf-mask" type="text"
-      [mask-pattern]="'###.###.###-##'" />
+      [placeholder]="'###.###.###-##'" />
     <input name="test-cnpj-mask" type="text"
-      [mask-pattern]="'##.###.###/####-##'" [showPlaceholder]="false"  />
+      [placeholder]="'__.___.___/____-__'" [showPlaceholder]="false"  />
     <input name="test-cel-mask" type="text"
-      [mask-pattern]="'+## (##) #-####-####'" placeholder="+00 (00) 0-0000-0000" />
+      [placeholder]="'+00 (00) 0-0000-0000'" />
     <input name="no-mask" type="text" />
   `
 })
@@ -47,8 +47,8 @@ describe('Directive: Teste da Diretiva mask-pattern', () => {
     const mask3 = maskedInputs[2].injector.get(MaskPatternDirective).pattern;
 
     expect(mask1).toBe('###.###.###-##');
-    expect(mask2).toBe('##.###.###/####-##');
-    expect(mask3).toBe('+## (##) #-####-####');
+    expect(mask2).toBe('__.___.___/____-__');
+    expect(mask3).toBe('+00 (00) 0-0000-0000');
   });
 
   it('Testando se a diretiva chama o método maskedFormatter da classe StringFormatter', () => {
@@ -67,19 +67,10 @@ describe('Directive: Teste da Diretiva mask-pattern', () => {
   });
 
 
-  it('Testando se o placeholder aparece por padrão', () => {
-    const input1 = maskedInputs[0].nativeElement as HTMLInputElement;
-    expect(input1.placeholder).toBe('###.###.###-##');
-  });
-
   it('Testando se o placeholder some se o showPlaceholder = false', () => {
     const input1 = maskedInputs[1].nativeElement as HTMLInputElement;
     expect(input1.placeholder).toBe('');
   });
 
-  it('Testando se o placeholder é preservado se for definido no input', () => {
-    const input1 = maskedInputs[2].nativeElement as HTMLInputElement;
-    expect(input1.placeholder).toBe('+00 (00) 0-0000-0000');
-  });
 
 });

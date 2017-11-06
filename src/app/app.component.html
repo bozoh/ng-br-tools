@@ -6,9 +6,15 @@
           <div class="col-sm-5 form-group">
             <label for="cpf">CPF</label>
               <input type="text" name="cpf" id="cpf"
-              [mask-pattern]="'+## (##) #-####-####'"
+              [placeholder]="'+## (##) #-####-####'"
               cpfValidator
               ngModel>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5 form-group">
+            <label for="cep">CEP</label>
+            <ng-br-tools-cep [placeholder]="'_____-___'"></ng-br-tools-cep>
           </div>
         </div>
         <div class="row">

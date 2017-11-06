@@ -1,3 +1,5 @@
+import { CepComponent } from './components/cep/cep.component';
+import { CepService } from './components/cep/cep.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
@@ -13,13 +15,14 @@ import { MaskPatternDirective } from './directive/mask-pattern.directive';
     AppComponent,
     CPFValidator,
     MaskPatternDirective,
+    CepComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
   ],
-  providers: [],
+  providers: [ CepService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
