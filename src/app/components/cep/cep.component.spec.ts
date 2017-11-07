@@ -1,17 +1,26 @@
-import { CEP_MASK } from './../../locallib/string-formatter.class';
-import { Endereco } from './endereco.model';
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
+import { CEP_MASK } from './../../locallib/string-formatter.class';
+import { Endereco } from './endereco.model';
 import { CepComponent } from './cep.component';
-import { CepService } from './cep.service';
+import { CepServiceIntfce } from './cep.service.interface';
+
+class MockedCepService implements CepServiceIntfce {
+  init(): null {
+    return;
+  }
+  buscaCep(cep: string): Endereco {
+    return null;
+  }
+}
 
 describe('CepComponent', () => {
   let cepComponent: CepComponent;
   let fixture: ComponentFixture<CepComponent>;
-  let cepServiceTest: CepService;
+  let cepServiceTest: CepServiceIntfce;
   const cepTest = '70002900';
   const cepTestFormatado = '70002-900';
   const enderecoTest = new Endereco(
@@ -28,13 +37,13 @@ describe('CepComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ CepComponent ],
-      providers: [ CepService ]
     });
     fixture = TestBed.createComponent(CepComponent);
+    cepServiceTest = new MockedCepService();
     cepComponent = fixture.componentInstance;
-    cepServiceTest = fixture.debugElement.injector.get(CepService);
-
+    cepComponent.cepService = cepServiceTest;
     fixture.detectChanges();
+
   });
 
 

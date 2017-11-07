@@ -21,7 +21,6 @@ export class MaskPatternDirective implements OnInit {
     if (this.showPlaceholder && !this.el.nativeElement.placeholder) {
       this.el.nativeElement.placeholder = this.pattern;
     }
-
   }
 
   @HostListener('input', ['$event'])  onkeyup(e) {
