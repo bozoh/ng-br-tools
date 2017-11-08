@@ -36,9 +36,11 @@ describe('Service: SigebWsCep', () => {
   //   expect(service).toBeTruthy();
   // }));
   it('Testando se chama a url correta', fakeAsync(() => {
+    // const proxy = 'https://cors-anywhere.herokuapp.com/';
+    const proxy = '';
     backend.connections.subscribe((conn: MockConnection) => {
       expect(conn.request.url).
-        toBe('https://cors-anywhere.herokuapp.com/https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente');
+        toBe(proxy + 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente');
     });
     cepServiceTest.buscaCep('12345678');
     tick();

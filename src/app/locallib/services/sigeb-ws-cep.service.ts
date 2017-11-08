@@ -1,4 +1,4 @@
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -7,7 +7,17 @@ import 'rxjs/add/operator/map';
 import { CepServiceIntfce } from './../../components/cep/cep.service.interface';
 import { Endereco } from './../../components/cep/endereco.model';
 
-
+/**
+ *  Essa é uma implementação de exemplo e não deve ser usada em produção
+ *  deve-se implementar, no beckend, uma chamada que:
+ *  1- faca a solicitação do cep e retorne um valor
+ *  2- repasse a solicitação para o servidor desejado, e retorne a resposta (proxy)
+ *
+ *  Nesse exemplo é usado um proxy https://cors-anywhere.herokuapp.com/
+ *  que possui o header Access-Control-Allow-Origin
+ *  http://qnimate.com/same-origin-policy-in-nutshell/
+ *  https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/
+ */
 @Injectable()
 export class SigebWsCepService implements CepServiceIntfce {
   proxy: string;
@@ -18,15 +28,20 @@ export class SigebWsCepService implements CepServiceIntfce {
     this.opts.headers = this.setHeaders();
     this.url = 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente';
     // Esse proxy é necessário para evitar o No 'Access-Control-Allow-Origin', XHR Same origin
-    this.proxy = 'https://cors-anywhere.herokuapp.com/';
+    // this.proxy = 'https://cors-anywhere.herokuapp.com/';
+    this.proxy = '';
     return;
   }
 
   buscaCep(cep: string): Observable<Endereco> {
     return this.http.post(this.proxy + this.url, this.addSoapEnvelope(cep), this.opts)
-      .map((res: any) => this.parseXmlEndereco(res));
+      .map((res: Response) => this.parseXmlEndereco(res.text()));
   }
-  private parseXmlEndereco(res: Response): Endereco {
+  private parseXmlEndereco(xml: string): Endereco {
+    const parse = new DOMParser();
+    const xmlData = parse.parseFromString(xml, 'application/xml');
+    const retEnd = new Endereco();
+
     // <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
     //   <soap:Body>
     //     <ns2:consultaCEPResponse xmlns:ns2="http://cliente.bean.master.sigep.bsb.correios.com.br/">
@@ -43,20 +58,16 @@ export class SigebWsCepService implements CepServiceIntfce {
     //     </ns2:consultaCEPResponse>
     //   </soap:Body>
     // </soap:Envelope>
-
-    //  Como esse serviço é só um exemplo, e não funciona devido ao XHR Same origin,
-    //  No 'Access-Control-Allow-Origin', não foi feito um parser para a reposta SOAP,
-    //  então sempre vai retornar o mesmo endereço
-    return new Endereco(
-      'SBN Quadra 1 Bloco A',
-      'Asa Norte',
-      '70002900',
-      'Brasília',
-      '',
-      '',
-      'DF',
-      0
-    );
+    retEnd.endereco = xmlData.getElementsByTagName('end').item(0).textContent.trim();
+    retEnd.complemento = xmlData.getElementsByTagName('complemento').item(0).
+      textContent.trim();
+    retEnd.complemento2 = xmlData.getElementsByTagName('complemento2').item(0).
+      textContent.trim();
+    retEnd.bairro = xmlData.getElementsByTagName('bairro').item(0).textContent.trim();
+    retEnd.cidade = xmlData.getElementsByTagName('cidade').item(0).textContent.trim();
+    retEnd.cep = xmlData.getElementsByTagName('cep').item(0).textContent.trim();
+    retEnd.uf = xmlData.getElementsByTagName('uf').item(0).textContent.trim();
+    return retEnd;
   }
 
   private setHeaders(): Headers {
