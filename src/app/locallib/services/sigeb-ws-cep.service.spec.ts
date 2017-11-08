@@ -118,7 +118,7 @@ describe('Service: SigebWsCep', () => {
       (end: Endereco) => returnEndereco = end);
 
     tick();
-    expect(returnEndereco.end).toBe(testEndereco.end);
+    expect(returnEndereco.endereco).toBe(testEndereco.endereco);
     expect(returnEndereco.bairro).toBe(testEndereco.bairro);
     expect(returnEndereco.cep).toBe(testEndereco.cep);
     expect(returnEndereco.cidade).toBe(testEndereco.cidade);

@@ -7,7 +7,7 @@ export class Endereco {
   // <id>0</id>
   // <uf>RJ</uf>
   constructor (
-    public end?: string,
+    public endereco?: string,
     public bairro?: string,
     public cep?: string,
     public cidade?: string,

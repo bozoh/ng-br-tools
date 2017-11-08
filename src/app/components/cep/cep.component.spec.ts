@@ -88,7 +88,7 @@ describe('CepComponent', () => {
     cepEl.triggerEventHandler('input', null);
     tick();
 
-    expect(endereco.end).toBe(enderecoTest.end, 'O endereço é diferente');
+    expect(endereco.endereco).toBe(enderecoTest.endereco, 'O endereço é diferente');
     expect(endereco.bairro).toBe(enderecoTest.bairro, 'O bairro é diferente');
     expect(endereco.cep).toBe(enderecoTest.cep, 'O cep é diferente');
     expect(endereco.complemento).toBe(enderecoTest.complemento, 'O complemento é diferente');
