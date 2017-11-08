@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { StringFormatter } from './../../locallib/string-formatter.class';
 import { CepServiceIntfce } from './cep.service.interface';
 import { Endereco } from './endereco.model';
@@ -22,7 +23,7 @@ export class CepComponent implements OnInit {
 
 
   @Output()
-  comEndereco: EventEmitter<Endereco>;
+  onEndereco: EventEmitter<Endereco> = new EventEmitter<Endereco>();
   constructor() { }
 
 
@@ -32,7 +33,6 @@ export class CepComponent implements OnInit {
     } else {
       throw new Error('Attribute "cepSservice" is required');
     }
-    this.comEndereco = new EventEmitter<Endereco>();
     if (this.placeholder) {
       this.cepEl.nativeElement.placeholder = this.placeholder;
     } else {
@@ -52,7 +52,17 @@ export class CepComponent implements OnInit {
       cepClear = StringFormatter.clearFormat(cep, this.placeholder);
     }
     if (cepClear.length >= 8) {
-        this.comEndereco.emit(this.cepService.buscaCep(cepClear));
+      const resp = this.cepService.buscaCep(cepClear);
+
+      if (resp instanceof Observable) {
+        (<Observable<Endereco>>resp).subscribe(
+          (e: Endereco) => this.onEndereco.emit(e)
+        );
+      } else {
+        (<Promise<Endereco>>resp).then(
+          (e: Endereco) => this.onEndereco.emit(e)
+        );
+      }
     }
   }
 }

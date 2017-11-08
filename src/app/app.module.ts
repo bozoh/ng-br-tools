@@ -1,5 +1,5 @@
+import { SigebWsCepService } from './locallib/services/sigeb-ws-cep.service';
 import { CepComponent } from './components/cep/cep.component';
-import { CepService } from './components/cep/cep.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
@@ -22,7 +22,9 @@ import { MaskPatternDirective } from './directive/mask-pattern.directive';
     FormsModule,
     HttpModule,
   ],
-  providers: [ CepService ],
+  providers: [
+    SigebWsCepService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,10 @@
+import { fakeAsync, tick } from '@angular/core/testing';
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 import { CEP_MASK } from './../../locallib/string-formatter.class';
 import { Endereco } from './endereco.model';
@@ -9,10 +12,8 @@ import { CepComponent } from './cep.component';
 import { CepServiceIntfce } from './cep.service.interface';
 
 class MockedCepService implements CepServiceIntfce {
-  init(): null {
-    return;
-  }
-  buscaCep(cep: string): Endereco {
+  init(): void {}
+  buscaCep(cep: string): Observable<Endereco> | Promise<Endereco> {
     return null;
   }
 }
@@ -76,15 +77,16 @@ describe('CepComponent', () => {
     expect(cepServiceTest.buscaCep).toHaveBeenCalledWith(cepTest);
   });
 
-  it('Deve emitir um endereço quando o cep for digitado', () => {
-    spyOn(cepServiceTest, 'buscaCep').and.returnValue(enderecoTest);
+  it('Deve emitir um endereço quando o cep for digitado', fakeAsync(() => {
+    spyOn(cepServiceTest, 'buscaCep').and.returnValue(Observable.of(enderecoTest));
     let endereco: Endereco;
-    cepComponent.comEndereco.subscribe((value) => endereco = value);
+    cepComponent.onEndereco.subscribe((value) => endereco = value);
 
     const cepEl = fixture.debugElement.query(By.css('input'));
     cepEl.nativeElement.value = cepTest;
 
     cepEl.triggerEventHandler('input', null);
+    tick();
 
     expect(endereco.end).toBe(enderecoTest.end, 'O endereço é diferente');
     expect(endereco.bairro).toBe(enderecoTest.bairro, 'O bairro é diferente');
@@ -92,7 +94,7 @@ describe('CepComponent', () => {
     expect(endereco.complemento).toBe(enderecoTest.complemento, 'O complemento é diferente');
     expect(endereco.complemento2).toBe(enderecoTest.complemento2, 'O complemento2 é diferente');
     expect(endereco.uf).toBe(enderecoTest.uf);
-  });
+  }));
 
 
 });
