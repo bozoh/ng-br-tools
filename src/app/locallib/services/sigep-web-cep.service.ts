@@ -19,6 +19,7 @@ import { Endereco } from './../../components/cep/endereco.model';
  *  http://qnimate.com/same-origin-policy-in-nutshell/
  *  https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/
  *  https://juristr.com/blog/2016/11/configure-proxy-api-angular-cli/
+ *  https://github.com/angular/angular-cli/issues/4322
  *  https://cors-anywhere.herokuapp.com/
  */
 @Injectable()
@@ -40,7 +41,7 @@ export class SigepWebCepService implements CepServiceIntfce {
     // @See https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/
     //
     //this.url = 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente';
-    this.url = '/sigep-web';
+    this.url = '/AtendeCliente';
 
     return;
   }

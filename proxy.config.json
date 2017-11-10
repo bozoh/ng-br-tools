@@ -1,9 +1,21 @@
 {
-  "/sigep-web": {
-    "target": "https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente",
+  "/AtendeCliente": {
+    "target": "https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService",
     "secure": true,
+    "changeOrigin": true,
     "logLevel": "debug"
+  },
+  "_comment": {
+    "/sigep-web": {
+      "target": {
+        "host": "https://apps.correios.com.br",
+        "path": "/SigepMasterJPA/AtendeClienteService/AtendeCliente",
+        "protocol": "https:",
+        "port": 443
+      },
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
   }
 }
-
-
