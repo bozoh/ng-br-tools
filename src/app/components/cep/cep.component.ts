@@ -23,11 +23,15 @@ export class CepComponent implements OnInit {
 
 
   @Output()
-  onEndereco: EventEmitter<Endereco> = new EventEmitter<Endereco>();
-  constructor() { }
+  onEndereco: EventEmitter<Endereco>;
+
+  constructor() {
+    this.onEndereco = new EventEmitter<Endereco>();
+  }
 
 
   ngOnInit() {
+    this.onEndereco = new EventEmitter<Endereco>();
     if (this.cepService) {
       this.cepService.init();
     } else {

@@ -1,14 +1,18 @@
 import { Observable } from 'rxjs/Observable';
 import { Endereco } from './../../components/cep/endereco.model';
-import { HttpModule, BaseRequestOptions, Http, ResponseOptions, Response } from '@angular/http';
+import { HttpModule, BaseRequestOptions, Http, ResponseOptions, Response, ResponseType } from '@angular/http';
 import { TestBed, async, inject } from '@angular/core/testing';
 import { fakeAsync } from '@angular/core/testing';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { tick } from '@angular/core/testing';
 
 import { CepServiceIntfce } from './../../components/cep/cep.service.interface';
-import { SigebWsCepService } from './sigeb-ws-cep.service';
+import { SigepWebCepService } from './sigep-web-cep.service';
 
+class MockError extends Response implements Error {
+  name: any;
+  message: any;
+}
 
 let cepServiceTest: CepServiceIntfce;
 let backend: MockBackend;
@@ -17,7 +21,7 @@ describe('Service: SigebWsCep', () => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
       providers: [
-        SigebWsCepService,
+        SigepWebCepService,
         BaseRequestOptions,
         MockBackend,
         {
@@ -28,23 +32,18 @@ describe('Service: SigebWsCep', () => {
       ]
     });
     backend = TestBed.get(MockBackend);
-    cepServiceTest = TestBed.get(SigebWsCepService);
+    cepServiceTest = TestBed.get(SigepWebCepService);
     cepServiceTest.init();
   });
 
-  // it('should ...', inject([SigebWsCepService], (service: SigebWsCepService) => {
-  //   expect(service).toBeTruthy();
+  // it('Testando se chama a url correta', fakeAsync(() => {
+  //   backend.connections.subscribe((conn: MockConnection) => {
+  //     expect(conn.request.url).
+  //       toBe('https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente');
+  //   });
+  //   cepServiceTest.buscaCep('12345678');
+  //   tick();
   // }));
-  it('Testando se chama a url correta', fakeAsync(() => {
-    // const proxy = 'https://cors-anywhere.herokuapp.com/';
-    const proxy = '';
-    backend.connections.subscribe((conn: MockConnection) => {
-      expect(conn.request.url).
-        toBe(proxy + 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente');
-    });
-    cepServiceTest.buscaCep('12345678');
-    tick();
-  }));
 
   it('Testando se o contet-type header do request está correto', fakeAsync(() => {
     backend.connections.subscribe((conn: MockConnection) => {
@@ -129,5 +128,51 @@ describe('Service: SigebWsCep', () => {
     expect(returnEndereco.uf).toBe(testEndereco.uf);
 
   }));
+  it('Testando se a resposta está correta', fakeAsync(() => {
+    const cep = '70002900';
+    let returnError: string;
+    const testFailResponse = `
+    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+      <soap:Body>
+        <soap:Fault>
+          <faultcode>soap:Server</faultcode>
+          <faultstring>CEP NAO ENCONTRADO</faultstring>
+          <detail>
+            <ns2:SigepClienteException xmlns:ns2="http://cliente.bean.master.sigep.bsb.correios.com.br/">
+              CEP NAO ENCONTRADO
+            </ns2:SigepClienteException>
+          </detail>
+        </soap:Fault>
+      </soap:Body>
+    </soap:Envelope>`;
+
+    backend.connections.subscribe((conn: MockConnection) => {
+      const opts = {type: ResponseType.Error, status: 500, body: testFailResponse};
+      const responseOpts = new ResponseOptions(opts);
+      conn.mockRespond(new Response(responseOpts));
+      // conn.mockError(new MockError(responseOpts));
+    });
+
+
+      // backend.connections.subscribe((conn: MockConnection) => {
+      //   conn.mockError(new Error(testFailResponse));
+      // });
+
+    (<Observable<Endereco>>cepServiceTest.buscaCep(cep)).subscribe(
+      (end: Endereco) => {},
+      (err) => returnError = err);
+
+    tick();
+
+    expect(returnError).toBe('CEP NAO ENCONTRADO');
+    // expect(returnEndereco.bairro).toBe(testEndereco.bairro);
+    // expect(returnEndereco.cep).toBe(testEndereco.cep);
+    // expect(returnEndereco.cidade).toBe(testEndereco.cidade);
+    // expect(returnEndereco.complemento).toBe(testEndereco.complemento);
+    // expect(returnEndereco.complemento2).toBe(testEndereco.complemento2);
+    // expect(returnEndereco.uf).toBe(testEndereco.uf);
+
+  }));
+
 });
 
