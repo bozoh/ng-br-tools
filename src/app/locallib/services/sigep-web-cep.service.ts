@@ -49,13 +49,12 @@ export class SigepWebCepService implements CepServiceIntfce {
   buscaCep(cep: string): Observable<Endereco> {
     return this.http.post(this.url, this.addSoapEnvelope(cep), this.opts)
     .map((res: Response) => this.parseXmlEndereco(res.text()))
-    .catch((err: any) => this.parseXmlError(err));
+    .catch((err: Response) => this.parseXmlError(err));
   }
-  private parseXmlError(err: any): ErrorObservable {
+  private parseXmlError(err: Response): ErrorObservable {
     let error: string;
     const parse = new DOMParser();
-    console.debug((<TypeError>err).message);
-    const xmlData = parse.parseFromString(err.message, 'application/xml');
+    const xmlData = parse.parseFromString(err.text(), 'application/xml');
     // <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
     //   <soap:Body>
     //     <soap:Fault>
@@ -72,7 +71,7 @@ export class SigepWebCepService implements CepServiceIntfce {
     if (xmlData.getElementsByTagName('detail').length > 0) {
       error = xmlData.getElementsByTagName('detail').item(0).textContent.trim();
     } else {
-      error = 'Erro indefinido';
+      error = err.status + ' - ' + err.statusText;
     }
     return Observable.throw(error);
   }
