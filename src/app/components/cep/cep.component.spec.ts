@@ -96,5 +96,4 @@ describe('CepComponent', () => {
     expect(endereco.uf).toBe(enderecoTest.uf);
   }));
 
-
 });

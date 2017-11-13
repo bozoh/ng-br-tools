@@ -23,15 +23,15 @@ export class CepComponent implements OnInit {
 
 
   @Output()
-  onEndereco: EventEmitter<Endereco>;
+  onEndereco: EventEmitter<Endereco> = new EventEmitter<Endereco>();
+  @Output()
+  onError: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {
-    this.onEndereco = new EventEmitter<Endereco>();
   }
 
 
   ngOnInit() {
-    this.onEndereco = new EventEmitter<Endereco>();
     if (this.cepService) {
       this.cepService.init();
     } else {
@@ -55,16 +55,25 @@ export class CepComponent implements OnInit {
     if (this.placeholder) {
       cepClear = StringFormatter.clearFormat(cep, this.placeholder);
     }
-    if (cepClear.length >= 8) {
+    if (cepClear.length === 8) {
       const resp = this.cepService.buscaCep(cepClear);
 
       if (resp instanceof Observable) {
         (<Observable<Endereco>>resp).subscribe(
-          (e: Endereco) => this.onEndereco.emit(e)
+          (e: Endereco) => {
+            this.onEndereco.emit(e);
+          },
+          (err: string) => {
+            this.onError.emit(err);
+          }
         );
       } else {
         (<Promise<Endereco>>resp).then(
           (e: Endereco) => this.onEndereco.emit(e)
+        ).catch(
+          (err: string) => {
+            this.onError.emit(err);
+          }
         );
       }
     }

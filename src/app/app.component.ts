@@ -14,7 +14,7 @@ import { SigepWebCepService } from './locallib/services/sigep-web-cep.service';
   styleUrls: ['./app.component.css']
 })
 @Injectable()
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   @ViewChild(CepComponent) cepComponent: CepComponent;
   title = 'app';
   endereco: Endereco;
@@ -22,19 +22,20 @@ export class AppComponent implements OnInit, AfterViewInit {
   error: string;
   hasError = false;
 
-  enderecoCep(e) {
+  doEndereco(e: Endereco) {
+    console.dir(e);
     this.hasEndereco = true;
     this.hasError = false;
+    this.error = '';
     this.endereco = e;
-    console.log(e);
   }
 
-  onError(e: string) {
-    console.error('11111' + e);
+  doError(e: string) {
+    this.hasError = true;
     this.hasEndereco = false;
     this.endereco = null;
-    this.error = e;
-    this.hasError = true;
+    this.error = `Erro ao buscar o cep: ${e}`;
+    console.error(`ERRO: ${e}`);
   }
 
   constructor(public cepService: SigepWebCepService) {
@@ -43,11 +44,4 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
-    // this.cepComponent.onEndereco.catch((err) => {
-    //   this.onError(err);
-    //   return Observable.throw('-------------' + err);
-    // });
-
-  }
 }

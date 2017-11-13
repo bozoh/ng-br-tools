@@ -15,8 +15,10 @@
           <div style="color: red;" class="col-sm-5 form-group">
             <label for="cep">CEP</label>
             <ng-br-tools-cep [class]="'form-control'" [placeholder]="'__.___-___'"
-              [cepService]="cepService" (onEndereco)="enderecoCep($event)"></ng-br-tools-cep>
+              [cepService]="cepService" (onEndereco)="doEndereco($event)"
+              (onError)="doError($event)"></ng-br-tools-cep>
           </div>
+
         </div>
         <div class="row">
           <div class="col-xs-12">
@@ -24,9 +26,11 @@
             <button type="reset" class="btn btn-danger">Limpar</button>
           </div>
         </div>
-    </form>
-    <div *ngIf="hasEndereco" class="row">
-      <div class="col-sm-6">
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6" *ngIf="hasEndereco">
         <h3>{{endereco.cep}}</h3>
         <p>{{endereco.endereco}}</p>
         <p>{{endereco.complemento}}</p>
@@ -34,12 +38,9 @@
         <p>{{endereco.bairro}}</p>
         <p>{{endereco.cidade}}</p>
         <p>{{endereco.uf}}</p>
-      </div>
-      <div *ngIf="hasError" class="row">
-          <div class="col-sm-6">
-            <h1>{{error}}</h1>
-          </div>
     </div>
+    <div class="col-sm-6" *ngIf="hasError">
+      <h3>{{error}}</h3>
     </div>
   </div>
 </div>

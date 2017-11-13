@@ -128,8 +128,8 @@ describe('Service: SigebWsCep', () => {
     expect(returnEndereco.uf).toBe(testEndereco.uf);
 
   }));
-  it('Testando se a resposta está correta', fakeAsync(() => {
-    const cep = '70002900';
+  it('Testando se retorna um erro caso cep não encontrado', fakeAsync(() => {
+    const cep = '20000000';
     let returnError: string;
     const testFailResponse = `
     <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
@@ -149,14 +149,8 @@ describe('Service: SigebWsCep', () => {
     backend.connections.subscribe((conn: MockConnection) => {
       const opts = {type: ResponseType.Error, status: 500, body: testFailResponse};
       const responseOpts = new ResponseOptions(opts);
-      conn.mockRespond(new Response(responseOpts));
-      // conn.mockError(new MockError(responseOpts));
+      conn.mockError(new MockError(responseOpts));
     });
-
-
-      // backend.connections.subscribe((conn: MockConnection) => {
-      //   conn.mockError(new Error(testFailResponse));
-      // });
 
     (<Observable<Endereco>>cepServiceTest.buscaCep(cep)).subscribe(
       (end: Endereco) => {},
@@ -165,13 +159,6 @@ describe('Service: SigebWsCep', () => {
     tick();
 
     expect(returnError).toBe('CEP NAO ENCONTRADO');
-    // expect(returnEndereco.bairro).toBe(testEndereco.bairro);
-    // expect(returnEndereco.cep).toBe(testEndereco.cep);
-    // expect(returnEndereco.cidade).toBe(testEndereco.cidade);
-    // expect(returnEndereco.complemento).toBe(testEndereco.complemento);
-    // expect(returnEndereco.complemento2).toBe(testEndereco.complemento2);
-    // expect(returnEndereco.uf).toBe(testEndereco.uf);
-
   }));
 
 });

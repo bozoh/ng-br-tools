@@ -55,19 +55,7 @@ export class SigepWebCepService implements CepServiceIntfce {
     let error: string;
     const parse = new DOMParser();
     const xmlData = parse.parseFromString(err.text(), 'application/xml');
-    // <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-    //   <soap:Body>
-    //     <soap:Fault>
-    //       <faultcode>soap:Server</faultcode>
-    //       <faultstring>CEP NAO ENCONTRADO</faultstring>
-    //       <detail>
-    //         <ns2:SigepClienteException xmlns:ns2="http://cliente.bean.master.sigep.bsb.correios.com.br/">
-    //           CEP NAO ENCONTRADO
-    //         </ns2:SigepClienteException>
-    //       </detail>
-    //     </soap:Fault>
-    //   </soap:Body>
-    // </soap:Envelope>
+
     if (xmlData.getElementsByTagName('detail').length > 0) {
       error = xmlData.getElementsByTagName('detail').item(0).textContent.trim();
     } else {
@@ -80,22 +68,6 @@ export class SigepWebCepService implements CepServiceIntfce {
     const xmlData = parse.parseFromString(xml, 'application/xml');
     const retEnd = new Endereco();
 
-    // <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-    //   <soap:Body>
-    //     <ns2:consultaCEPResponse xmlns:ns2="http://cliente.bean.master.sigep.bsb.correios.com.br/">
-    //       <return>
-    //         <bairro>Asa Norte</bairro>
-    //         <cep>70002900</cep>
-    //         <cidade>Brasília</cidade>
-    //         <complemento></complemento>
-    //         <complemento2></complemento2>
-    //         <end>SBN Quadra 1 Bloco A</end>
-    //         <id>0</id>
-    //         <uf>DF</uf>
-    //       </return>
-    //     </ns2:consultaCEPResponse>
-    //   </soap:Body>
-    // </soap:Envelope>
     retEnd.endereco = xmlData.getElementsByTagName('end').item(0).textContent.trim();
     retEnd.complemento = xmlData.getElementsByTagName('complemento').item(0).
     textContent.trim();
@@ -124,11 +96,6 @@ export class SigepWebCepService implements CepServiceIntfce {
     </ns1:consultaCEP>
     </SOAP-ENV:Body>
     </SOAP-ENV:Envelope>`;
-  }
-  // https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl
-
-  get proxy(): string {
-    return this._proxy;
   }
 
 }
