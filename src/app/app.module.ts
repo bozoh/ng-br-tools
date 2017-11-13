@@ -1,3 +1,4 @@
+import { CEP_SERVICE, cepServiceFactory } from './components/cep/cep.service.interface';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
@@ -24,6 +25,11 @@ import { SigepWebCepService } from './locallib/services/sigep-web-cep.service';
   ],
   providers: [
     SigepWebCepService,
+    {
+      provide: CEP_SERVICE,
+      useFactory: cepServiceFactory,
+      deps: [SigepWebCepService]
+    }
   ],
   bootstrap: [AppComponent]
 })

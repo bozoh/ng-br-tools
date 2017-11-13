@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
     console.error(`ERRO: ${e}`);
   }
 
-  constructor(public cepService: SigepWebCepService) {
+  constructor() {
   }
 
   ngOnInit() {

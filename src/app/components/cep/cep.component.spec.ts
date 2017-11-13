@@ -1,6 +1,5 @@
-import { fakeAsync, tick } from '@angular/core/testing';
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { fakeAsync, tick, async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -9,7 +8,7 @@ import 'rxjs/add/observable/of';
 import { CEP_MASK } from './../../locallib/string-formatter.class';
 import { Endereco } from './endereco.model';
 import { CepComponent } from './cep.component';
-import { CepServiceIntfce } from './cep.service.interface';
+import { CepServiceIntfce, CEP_SERVICE, cepServiceFactory } from './cep.service.interface';
 
 class MockedCepService implements CepServiceIntfce {
   init(): void {}
@@ -38,11 +37,20 @@ describe('CepComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ CepComponent ],
+      providers: [
+        MockedCepService,
+        {
+          provide: CEP_SERVICE,
+          useFactory: cepServiceFactory,
+          deps: [MockedCepService]
+        }
+      ],
     });
+
     fixture = TestBed.createComponent(CepComponent);
-    cepServiceTest = new MockedCepService();
+
     cepComponent = fixture.componentInstance;
-    cepComponent.cepService = cepServiceTest;
+    cepServiceTest = TestBed.get(CEP_SERVICE);
     fixture.detectChanges();
 
   });

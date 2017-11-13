@@ -14,9 +14,12 @@
         <div class="row">
           <div style="color: red;" class="col-sm-5 form-group">
             <label for="cep">CEP</label>
-            <ng-br-tools-cep [class]="'form-control'" [placeholder]="'__.___-___'"
-              [cepService]="cepService" (onEndereco)="doEndereco($event)"
-              (onError)="doError($event)"></ng-br-tools-cep>
+            <ng-br-tools-cep
+              [class]="'form-control'"
+              [placeholder]="'__.___-___'"
+              (onEndereco)="doEndereco($event)"
+              (onError)="doError($event)">
+            </ng-br-tools-cep>
           </div>
 
         </div>

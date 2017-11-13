@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs/Observable';
 import { StringFormatter } from './../../locallib/string-formatter.class';
-import { CepServiceIntfce } from './cep.service.interface';
+import { CepServiceIntfce, CEP_SERVICE } from './cep.service.interface';
 import { Endereco } from './endereco.model';
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild, HostBinding } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, HostBinding, Inject } from '@angular/core';
 
 
 @Component({
@@ -16,25 +16,29 @@ export class CepComponent implements OnInit {
 
   @ViewChild('cep') cepEl;
 
-  @Input() cepService: CepServiceIntfce = null;
+  private cepService: CepServiceIntfce = null;
   @Input() placeholder;
   @Input() style;
   @Input() class;
 
-
+  /*
+    Emite o endereço do cep digitado
+  */
   @Output()
   onEndereco: EventEmitter<Endereco> = new EventEmitter<Endereco>();
+  /*
+   Emite o erro, principalemnte se o endereço não for encontrato
+  */
   @Output()
   onError: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() {
+  constructor(@Inject(CEP_SERVICE) cepService: CepServiceIntfce ) {
+    this.cepService = cepService;
   }
 
 
   ngOnInit() {
-    if (this.cepService) {
-      this.cepService.init();
-    } else {
+    if (!this.cepService) {
       throw new Error('Attribute "cepSservice" is required');
     }
     if (this.placeholder) {
@@ -52,6 +56,7 @@ export class CepComponent implements OnInit {
 
   buscaCep(cep: string) {
     let cepClear = cep;
+
     if (this.placeholder) {
       cepClear = StringFormatter.clearFormat(cep, this.placeholder);
     }
