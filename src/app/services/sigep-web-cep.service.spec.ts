@@ -1,13 +1,15 @@
 import { Observable } from 'rxjs/Observable';
-import { Endereco } from './../../components/cep/endereco.model';
+
 import { HttpModule, BaseRequestOptions, Http, ResponseOptions, Response, ResponseType } from '@angular/http';
 import { TestBed, async, inject } from '@angular/core/testing';
 import { fakeAsync } from '@angular/core/testing';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { tick } from '@angular/core/testing';
 
-import { CepServiceIntfce } from './../../components/cep/cep.service.interface';
+
 import { SigepWebCepService } from './sigep-web-cep.service';
+import { CepServiceIntfce } from '../ng-br-tools/components/cep/cep.service.interface';
+import { Endereco } from '../ng-br-tools/components/cep/endereco.model';
 
 class MockError extends Response implements Error {
   name: any;

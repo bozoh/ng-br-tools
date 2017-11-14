@@ -5,10 +5,12 @@ import { DebugElement } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import { CEP_MASK } from './../../locallib/string-formatter.class';
+import { CepServiceIntfce } from './cep.service.interface';
 import { Endereco } from './endereco.model';
 import { CepComponent } from './cep.component';
-import { CepServiceIntfce, CEP_SERVICE, cepServiceFactory } from './cep.service.interface';
+import { CEP_MASK } from '../../locallib/string-formatter.class';
+import { CEP_SERVICE, cepServiceFactory } from './cep.service.factory';
+
 
 class MockedCepService implements CepServiceIntfce {
   init(): void {}

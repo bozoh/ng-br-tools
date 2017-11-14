@@ -1,12 +1,10 @@
 import { Observable } from 'rxjs/Observable';
-import { CepComponent } from './components/cep/cep.component';
 import { Component, OnInit, Injectable, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { CepComponent } from './ng-br-tools/components/cep/cep.component';
+import { Endereco } from './ng-br-tools/components/cep/endereco.model';
 
-import { Endereco } from './components/cep/endereco.model';
-import { CepServiceIntfce } from './components/cep/cep.service.interface';
-import { SigepWebCepService } from './locallib/services/sigep-web-cep.service';
 
 @Component({
   selector: 'app-root',

@@ -1,8 +1,16 @@
+import {
+  Component, OnInit, ViewChild,
+  Input, Output, EventEmitter, Inject
+} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { StringFormatter } from './../../locallib/string-formatter.class';
-import { CepServiceIntfce, CEP_SERVICE } from './cep.service.interface';
+
+
 import { Endereco } from './endereco.model';
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild, HostBinding, Inject } from '@angular/core';
+import { StringFormatter } from '../../locallib/string-formatter.class';
+import { CepServiceIntfce } from './cep.service.interface';
+import { CEP_SERVICE } from './cep.service.factory';
+
+
 
 
 @Component({
