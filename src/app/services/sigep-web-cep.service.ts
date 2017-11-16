@@ -5,8 +5,8 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { CepServiceIntfce } from '../ng-br-tools/components/cep/cep.service.interface';
-import { Endereco } from '../ng-br-tools/components/cep/endereco.model';
+import { CepServiceIntfce, Endereco } from 'ng-br-tools';
+
 
 
 

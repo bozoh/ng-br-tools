@@ -1,3 +1,4 @@
+
 import { Observable } from 'rxjs/Observable';
 
 import { HttpModule, BaseRequestOptions, Http, ResponseOptions, Response, ResponseType } from '@angular/http';
@@ -8,8 +9,8 @@ import { tick } from '@angular/core/testing';
 
 
 import { SigepWebCepService } from './sigep-web-cep.service';
-import { CepServiceIntfce } from '../ng-br-tools/components/cep/cep.service.interface';
-import { Endereco } from '../ng-br-tools/components/cep/endereco.model';
+import { CepServiceIntfce, Endereco } from 'ng-br-tools';
+
 
 class MockError extends Response implements Error {
   name: any;

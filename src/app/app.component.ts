@@ -2,9 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Injectable, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { CepComponent } from './ng-br-tools/components/cep/cep.component';
-import { Endereco } from './ng-br-tools/components/cep/endereco.model';
-
+import { CepComponent, Endereco } from 'ng-br-tools';
 
 @Component({
   selector: 'app-root',

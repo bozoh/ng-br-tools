@@ -28,5 +28,11 @@ getTestBed().initTestEnvironment(
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
+
+// Testando a lib com
+const libContext = require.context('../ng-br-tools', true, /\.spec\.ts$/);
+// And load the modules.
+libContext.keys().map(libContext);
+
 // Finally, start Karma to run the tests.
 __karma__.start();
