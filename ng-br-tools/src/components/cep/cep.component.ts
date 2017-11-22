@@ -16,9 +16,7 @@ import { CEP_SERVICE } from './cep.service.factory';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'ng-br-tools-cep',
-  template: `<input #cep [ngClass]="class" [ngStyle]="style" type="text" (input)="buscaCep(cep.value)">`,
-  styleUrls: ['./cep.component.css'],
-
+  template: `<input #cep type="text" (input)="buscaCep(cep.value)">`,
 })
 export class CepComponent implements OnInit {
 
@@ -26,8 +24,6 @@ export class CepComponent implements OnInit {
 
   private cepService: CepServiceIntfce = null;
   @Input() placeholder;
-  @Input() style;
-  @Input() class;
 
   /*
     Emite o endereço do cep digitado
@@ -53,12 +49,6 @@ export class CepComponent implements OnInit {
       this.cepEl.nativeElement.placeholder = this.placeholder;
     } else {
       this.cepEl.nativeElement.maxLength = 8;
-    }
-    if (this.style) {
-      this.cepEl.nativeElement.style = this.style;
-    }
-    if (this.class) {
-      this.cepEl.nativeElement.class = this.class;
     }
   }
 
