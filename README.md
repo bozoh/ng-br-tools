@@ -1,6 +1,5 @@
 # NgBrTools
-
-
+[![Build Status](https://travis-ci.org/bozoh/ng-br-tools.svg?branch=master)](https://travis-ci.org/bozoh/ng-br-tools)
 [![Greenkeeper badge](https://badges.greenkeeper.io/bozoh/ng-br-tools.svg)](https://greenkeeper.io/)
 
 Utilitário feito em angular 4/5 específico para sistemas brasileiros
