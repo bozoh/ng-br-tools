@@ -1,0 +1,17 @@
+<!-- <div  class="estadosBg">
+  <select name="estados" id="estados">
+    <option *ngFor="let e of estados;"
+    value="{{e.value}}">
+      {{e.nome}}
+    </option>
+  </select>
+</div> -->
+<div id="estados" class = "dropdown">
+  <div class="item" *ngFor="let e of estados;">
+      <span [class.to-left]="txtPosition()" >{{e.nome}}</span>
+      <img *ngIf="!hideFlags"
+        [class.to-left]="flgPosition()"
+        src="assets/bandeiras/{{e.value}}.svg"
+        alt="Bandeira {{e.nome}}">
+  </div>
+</div>

@@ -1,3 +1,4 @@
+import { EstadoComponent } from './components/estado/estado.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -26,7 +27,8 @@ import { CepComponent } from './components/cep/cep.component';
     CpfPatternPipe,
     CnpjPatternPipe,
     CPFValidator,
-    CNPJValidator
+    CNPJValidator,
+    EstadoComponent,
   ],
   imports: [
     CommonModule
@@ -44,6 +46,7 @@ import { CepComponent } from './components/cep/cep.component';
     CnpjPatternPipe,
     CPFValidator,
     CNPJValidator,
+    EstadoComponent,
   ],
 })
 export class NgBrToolsModule { }

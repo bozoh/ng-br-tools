@@ -13,4 +13,5 @@ export * from './components/cep/cep.component';
 export * from './components/cep/cep.service.factory';
 export * from './components/cep/cep.service.interface';
 export * from './components/cep/endereco.model';
+export * from './components/estado/estado.component';
 export * from './ng-br-tools.module';
