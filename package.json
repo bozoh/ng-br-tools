@@ -4,9 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --dev --proxy-config proxy.config.json",
-    "build": "ng build",
-    "test": "ng test",
+    "start": "npm run build:lib && ng serve --dev --proxy-config proxy.config.json",
+    "build": "npm run build:lib && ng build",
+    "test": "npm run build:lib && ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:lib": "ng-packagr"

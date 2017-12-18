@@ -3,7 +3,7 @@ import {CepServiceIntfce} from './cep.service.interface';
 
 export let CEP_SERVICE = new InjectionToken<CepServiceIntfce>('cep.service');
 
-export let cepServiceFactory = (cepService: CepServiceIntfce) => {
+export let CepServiceFactory = (cepService: CepServiceIntfce) => {
   cepService.init();
   return cepService;
 };

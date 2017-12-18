@@ -9,9 +9,12 @@ export * from './directive/cnpj-pattern.directive';
 export * from './pipes/cnpj-pattern.pipe';
 export * from './validators/cnpj.validator';
 export * from './components/cep/cep.component';
-export * from './components/cep/cep.component';
 export * from './components/cep/cep.service.factory';
 export * from './components/cep/cep.service.interface';
 export * from './components/cep/endereco.model';
 export * from './components/estado/estado.component';
+export * from './components/estado/estado.service.factory';
+export * from './components/estado/estado.service.interface';
+export * from './components/estado/estado.model';
+
 export * from './ng-br-tools.module';

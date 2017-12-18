@@ -9,7 +9,7 @@ import { CepServiceIntfce } from './cep.service.interface';
 import { Endereco } from './endereco.model';
 import { CepComponent } from './cep.component';
 import { CEP_MASK } from '../../locallib/string-formatter.class';
-import { CEP_SERVICE, cepServiceFactory } from './cep.service.factory';
+import { CEP_SERVICE, CepServiceFactory } from './cep.service.factory';
 
 
 class MockedCepService implements CepServiceIntfce {
@@ -43,7 +43,7 @@ describe('CepComponent', () => {
         MockedCepService,
         {
           provide: CEP_SERVICE,
-          useFactory: cepServiceFactory,
+          useFactory: CepServiceFactory,
           deps: [MockedCepService]
         }
       ],

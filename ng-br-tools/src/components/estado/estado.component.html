@@ -7,11 +7,11 @@
   </select>
 </div> -->
 <div id="estados" class = "dropdown">
-  <div class="item" *ngFor="let e of estados;">
-      <span [class.to-left]="txtPosition()" >{{e.nome}}</span>
-      <img *ngIf="!hideFlags"
+  <div class="item" *ngFor="let e of estados | async as estados;">
+      <span [class.to-left]="txtPosition()" >{{e.nome}} - {{e.sigla}}</span>
+      <img *ngIf="!hideFlags && e.bandeira"
         [class.to-left]="flgPosition()"
-        src="assets/bandeiras/{{e.value}}.svg"
+        [src]="e.bandeira"
         alt="Bandeira {{e.nome}}">
   </div>
 </div>

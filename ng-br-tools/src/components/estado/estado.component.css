@@ -1,14 +1,3 @@
-.estadosBg {
-  display: inline-block;
-  position: relative;
-}
-.estadosBg select#estados option[value="AC"]::after {
-  content: '<img src="assets/bandeiras/AC.svg">';
-}
-select#gender option[value="female"] { background-image:url(female.png); }
-select#gender option[value="others"] { background-image:url(others.png); }
-
-
 .dropdown {
   display: flex;
   flex-direction: column;

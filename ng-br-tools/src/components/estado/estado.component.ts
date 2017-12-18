@@ -1,4 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Estado } from './estado.model';
+import { Component, OnInit, Input, Inject, EventEmitter, Output } from '@angular/core';
+import { ESTADO_SERVICE } from './estado.service.factory';
+import { EstadoServiceIntfce } from './estado.service.interface';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ng-br-tools-estados',
@@ -14,42 +19,22 @@ export class EstadoComponent implements OnInit {
 
   // tslint:disable-next-line:no-input-rename
   @Input('flg-position') _flagPosition;
+  /*
+  Emite o estado selecionado
+  */
+  @Output()
+  onEndereco: EventEmitter<Estado> = new EventEmitter<Estado>();
+  /*
+  Emite o erro, se não conseguir obtar a lista de estadaos
+  */
+  @Output()
+  onError: EventEmitter<string> = new EventEmitter<string>();
 
-  private _estados = [];
-  constructor() {
-    const estados = [
-      {nome: 'Acre', value: 'AC'},
-      {nome: 'Alagoas', value: 'AL'},
-      {nome: 'Amazonas', value: 'AM'},
-      {nome: 'Amapá', value: 'AP'},
-      {nome: 'Bahia', value: 'BA'},
-      {nome: 'Ceará', value: 'CE'},
-      {nome: 'Distrito Federal', value: 'DF'},
-      {nome: 'Espírito Santo', value: 'ES'},
-      {nome: 'Goáis', value: 'GO'},
-      {nome: 'Maranhão', value: 'MA'},
-      {nome: 'Minas Gerais', value: 'MG'},
-      {nome: 'Mato Grosso', value: 'MT'},
-      {nome: 'Mato Grosso do Sul', value: 'MS'},
-      {nome: 'Pará', value: 'PA'},
-      {nome: 'Pernambuco', value: 'PE'},
-      {nome: 'Paraíba', value: 'PB'},
-      {nome: 'Piauí', value: 'PI'},
-      {nome: 'Paraná', value: 'PR'},
-      {nome: 'Rio de Janeiro', value: 'RJ'},
-      {nome: 'Rio Grande do Norte', value: 'RN'},
-      {nome: 'Rondônia', value: 'RO'},
-      {nome: 'Roraima', value: 'RR'},
-      {nome: 'Rio Grande do Sul', value: 'RS'},
-      {nome: 'Santa Catarina', value: 'SC'},
-      {nome: 'Sergipe', value: 'SE'},
-      {nome: 'São Paulo', value: 'SP'},
-      {nome: 'Tocantins', value: 'TO'}
-    ];
-    this._estados = estados.slice(0).sort((e1, e2) => {
-      if (e1.nome === e2.nome) { return 0; }
-      return (e1.nome < e2.nome ) ? -1 : 1;
-    });
+  private _estadoService: EstadoServiceIntfce;
+  private _estados: Observable<Estado[]> | Promise<Estado[]>;
+
+  constructor(@Inject(ESTADO_SERVICE) estadoService: EstadoServiceIntfce ) {
+    this._estadoService = estadoService;
   }
 
   ngOnInit(): void {
@@ -75,7 +60,27 @@ export class EstadoComponent implements OnInit {
       this._flagPosition = 'left';
       this._txtPosition = 'right';
     }
-  }
+    // Carregando os estados
+    this._estados = this._estadoService.buscaEstados();
+  //   if (resp instanceof Observable) {
+  //     (<Observable<Estado[]>>resp).subscribe(
+  //       (e: Estado[]) => {
+  //         this._estados = this._sortEstados(e, 'nome');
+  //       },
+  //       (err: string) => {
+  //         this.onError.emit(err);
+  //       }
+  //     );
+  //   } else {
+  //     (<Promise<Estado[]>>resp).then(
+  //       (e: Estado[]) => this._estados = this._sortEstados(e, 'nome')
+  //     ).catch(
+  //       (err: string) => {
+  //         this.onError.emit(err);
+  //       }
+  //     );
+  //  }
+ }
 
   txtPosition() {
     return this._txtPosition === 'left';
@@ -85,13 +90,25 @@ export class EstadoComponent implements OnInit {
     return !this._flagPosition || this._flagPosition === 'left';
   }
 
+  private _sortEstados(lst: Estado[], por = 'nome'): Estado[] {
+    if (por === 'nome') {
+      return lst.slice(0).sort((e1, e2) => {
+          if (e1.nome === e2.nome) { return 0; }
+            return (e1.nome < e2.nome ) ? -1 : 1;
+        });
+    } else if (por === 'sigla') {
+      return lst.slice(0).sort((e1, e2) => {
+        if (e1.sigla === e2.sigla) { return 0; }
+          return (e1.sigla < e2.sigla ) ? -1 : 1;
+      });
+    }
+  }
+
   get hideFlags(): boolean {
     return this._hideFlags;
   }
 
-  get estados(): any[] {
-    return this._estados.slice(0);
+  get estados(): Observable<Estado[]> | Promise<Estado[]> {
+    return this._estados;
   }
-
-
 }
