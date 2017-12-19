@@ -3,7 +3,8 @@ import { Component, OnInit, Input, Inject, EventEmitter, Output } from '@angular
 import { ESTADO_SERVICE } from './estado.service.factory';
 import { EstadoServiceIntfce } from './estado.service.interface';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/fromPromise';
 
 @Component({
   selector: 'ng-br-tools-estados',
@@ -13,17 +14,24 @@ import { Subscription } from 'rxjs/Subscription';
 export class EstadoComponent implements OnInit {
   // tslint:disable-next-line:no-input-rename
   @Input('hide-flags') _hideFlags = false;
+  // tslint:disable-next-line:no-input-rename
+  @Input('hide-nomes') _hideNomes = false;
+  // tslint:disable-next-line:no-input-rename
+  @Input('hide-siglas') _hideSiglas = false;
 
   // tslint:disable-next-line:no-input-rename
   @Input('txt-position') _txtPosition;
 
   // tslint:disable-next-line:no-input-rename
   @Input('flg-position') _flagPosition;
+
+  // tslint:disable-next-line:no-input-rename
+  @Input('order-by') _orderBy = 'nome';
   /*
   Emite o estado selecionado
   */
   @Output()
-  onEndereco: EventEmitter<Estado> = new EventEmitter<Estado>();
+  onEstado: EventEmitter<Estado> = new EventEmitter<Estado>();
   /*
   Emite o erro, se não conseguir obtar a lista de estadaos
   */
@@ -31,7 +39,7 @@ export class EstadoComponent implements OnInit {
   onError: EventEmitter<string> = new EventEmitter<string>();
 
   private _estadoService: EstadoServiceIntfce;
-  private _estados: Observable<Estado[]> | Promise<Estado[]>;
+  private _estados: Observable<Estado[]>;
 
   constructor(@Inject(ESTADO_SERVICE) estadoService: EstadoServiceIntfce ) {
     this._estadoService = estadoService;
@@ -61,26 +69,23 @@ export class EstadoComponent implements OnInit {
       this._txtPosition = 'right';
     }
     // Carregando os estados
-    this._estados = this._estadoService.buscaEstados();
-  //   if (resp instanceof Observable) {
-  //     (<Observable<Estado[]>>resp).subscribe(
-  //       (e: Estado[]) => {
-  //         this._estados = this._sortEstados(e, 'nome');
-  //       },
-  //       (err: string) => {
-  //         this.onError.emit(err);
-  //       }
-  //     );
-  //   } else {
-  //     (<Promise<Estado[]>>resp).then(
-  //       (e: Estado[]) => this._estados = this._sortEstados(e, 'nome')
-  //     ).catch(
-  //       (err: string) => {
-  //         this.onError.emit(err);
-  //       }
-  //     );
-  //  }
+    let resp = this._estadoService.buscaEstados();
+    if (resp instanceof Promise) {
+      resp = Observable.fromPromise((<Promise<Estado[]>>resp));
+    }
+    this._estados = (<Observable<Estado[]>>resp)
+        .map((estados: Estado[]) => {
+          return this._sortEstados(estados, this._orderBy);
+        }
+      );
  }
+
+  setSelected(event, e: Estado) {
+    console.error({ 'name': 'idx', 'payload': e});
+    console.error({ 'name': 'event', 'payload': event});
+    this.onEstado.emit(e);
+    // console.error({ 'name': 'estado', 'payload': this._lstEstados[i]});
+  }
 
   txtPosition() {
     return this._txtPosition === 'left';
@@ -90,7 +95,7 @@ export class EstadoComponent implements OnInit {
     return !this._flagPosition || this._flagPosition === 'left';
   }
 
-  private _sortEstados(lst: Estado[], por = 'nome'): Estado[] {
+  _sortEstados(lst: Estado[], por = 'nome'): Estado[] {
     if (por === 'nome') {
       return lst.slice(0).sort((e1, e2) => {
           if (e1.nome === e2.nome) { return 0; }
@@ -108,7 +113,15 @@ export class EstadoComponent implements OnInit {
     return this._hideFlags;
   }
 
-  get estados(): Observable<Estado[]> | Promise<Estado[]> {
+  get hideNomes(): boolean {
+    return this._hideNomes;
+  }
+
+  get hideSiglas(): boolean {
+    return this._hideSiglas;
+  }
+
+  get estados(): Observable<Estado[]> {
     return this._estados;
   }
 }

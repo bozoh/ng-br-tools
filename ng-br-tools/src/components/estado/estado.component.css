@@ -7,6 +7,11 @@
   width: 13rem
 }
 
+.selected {
+  background-color: #cfdfff;
+  color: #aaaaaa;
+}
+
 .dropdown .item {
   display: block;
   padding-bottom: 0.3rem;

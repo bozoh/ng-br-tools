@@ -1,4 +1,11 @@
 {
+  "/localidades": {
+    "target": "https://servicodados.ibge.gov.br/api/v1",
+    "secure": "true",
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+
   "/AtendeCliente": {
     "target": "https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService",
     "secure": true,

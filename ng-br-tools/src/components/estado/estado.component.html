@@ -7,8 +7,23 @@
   </select>
 </div> -->
 <div id="estados" class = "dropdown">
-  <div class="item" *ngFor="let e of estados | async as estados;">
-      <span [class.to-left]="txtPosition()" >{{e.nome}} - {{e.sigla}}</span>
+  <div class="item" *ngFor="let e of estados | async as estados;"
+    (click)="setSelected(this, e)"
+  >
+      <span [class.to-left]="txtPosition()">
+        <span *ngIf="!hideNomes"
+          class='nome-estado'>
+            {{e.nome}}
+        </span>
+        <span *ngIf="!hideNomes && !hideNomes"
+          class='separador-nome-sigla'>
+           -
+        </span>
+        <span *ngIf="!hideSiglas"
+          class='sigla-estado'>
+            {{e.sigla}}
+        </span>
+      </span>
       <img *ngIf="!hideFlags && e.bandeira"
         [class.to-left]="flgPosition()"
         [src]="e.bandeira"

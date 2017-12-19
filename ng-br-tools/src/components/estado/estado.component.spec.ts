@@ -13,7 +13,7 @@ import { ESTADO_SERVICE, EstadoServiceFactory } from './estado.service.factory';
 
 class MockedEstadoService implements EstadoServiceIntfce {
   init(): void { }
-  buscaEstados(): Observable<Estado> | Promise<Estado> {
+  buscaEstados(): Observable<Estado[]> | Promise<Estado[]> {
     return null;
   }
 }

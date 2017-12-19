@@ -1,3 +1,4 @@
+import { LstEstadosIBGEService } from './services/lst-estados-ibge.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
@@ -33,6 +34,12 @@ import { LstEstadosSimplesService } from './services/lst-estados-simples.service
       useFactory: EstadoServiceFactory,
       deps: [LstEstadosSimplesService]
     }
+    // LstEstadosIBGEService,
+    // {
+    //   provide: ESTADO_SERVICE,
+    //   useFactory: EstadoServiceFactory,
+    //   deps: [LstEstadosIBGEService]
+    // }
 
   ],
   bootstrap: [AppComponent]

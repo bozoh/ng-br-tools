@@ -27,8 +27,11 @@
             <label for="estados"></label>
             <ng-br-tools-estados
               [hide-flags]="false"
+              [hide-nomes]="true"
+              [hide-siglas]="false"
               [flg-position]="'left'"
-              [txt-position]="'right'">
+              [txt-position]="'right'"
+              [order-by]="'nome'">
             </ng-br-tools-estados>
           </div>
         </div>
