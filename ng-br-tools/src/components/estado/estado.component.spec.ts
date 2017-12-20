@@ -1,4 +1,3 @@
-import { EstadoComponent } from './estado.component';
 /* tslint:disable:no-unused-variable */
 import { fakeAsync, tick, async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -6,15 +5,18 @@ import { DebugElement } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { Estado } from './estado.model';
+import { EstadoComponent } from './estado.component';
 import { EstadoServiceIntfce } from './estado.service.interface';
 import { ESTADO_SERVICE, EstadoServiceFactory } from './estado.service.factory';
+import { debug } from 'util';
 
 
 
 class MockedEstadoService implements EstadoServiceIntfce {
   init(): void { }
-  buscaEstados(): Observable<Estado[]> | Promise<Estado[]> {
-    return null;
+  buscaEstados(): Promise<Estado[]> {
+    const estados: Estado[] = [new Estado('Teste', 'TE')];
+    return new Promise((resolve, err) => resolve(estados));
   }
 }
 
@@ -23,7 +25,7 @@ describe('EstadoComponent', () => {
   let fixture: ComponentFixture<EstadoComponent>;
   let estadoServiceTest: EstadoServiceIntfce;
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ EstadoComponent ],
       providers: [
@@ -34,40 +36,48 @@ describe('EstadoComponent', () => {
           deps: [MockedEstadoService]
         }
       ],
+    }).compileComponents().then(() => {
+      // fixture = TestBed.createComponent(EstadoComponent);
+      // estadoComponent = fixture.componentInstance;
+      estadoServiceTest = TestBed.get(ESTADO_SERVICE);
+      // fixture.detectChanges();
     });
+  }));
 
-    fixture = TestBed.createComponent(EstadoComponent);
-    estadoComponent = fixture.componentInstance;
-    estadoServiceTest = TestBed.get(ESTADO_SERVICE);
-    fixture.detectChanges();
+  it('Serviço de lista de estados está corretamente injetado', () => {
+    expect(estadoServiceTest instanceof MockedEstadoService).toBeTruthy();
   });
 
-
   it('Deve chamar o método buscaEstados no serviço', () => {
-    spyOn(estadoServiceTest, 'buscaEstados');
+    spyOn(estadoServiceTest, 'buscaEstados').and.callThrough();
     fixture = TestBed.createComponent(EstadoComponent);
     estadoComponent = fixture.componentInstance;
+    fixture.detectChanges();
     expect(estadoServiceTest.buscaEstados).toHaveBeenCalled();
   });
 
 
   it('Deve emitir um estado quando for selecionato ', fakeAsync(() => {
-  //   spyOn(estadoServiceTest, 'buscaCep').and.returnValue(Observable.of(enderecoTest));
-  //   let endereco: Endereco;
-  //   estadoComponent.onEndereco.subscribe((value) => endereco = value);
+    fixture = TestBed.createComponent(EstadoComponent);
+    estadoComponent = fixture.componentInstance;
+    let el: DebugElement;
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+      el = fixture.debugElement.query(By.css('#item'));
+    });
+    tick();
+    expect(el).toBeDefined();
+    expect(el).not.toBeNull();
 
-  //   const cepEl = fixture.debugElement.query(By.css('input'));
-  //   cepEl.nativeElement.value = cepTest;
+    let estadoTest: Estado;
+    estadoComponent.onEstado.subscribe((value) => estadoTest = value);
+    el.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    tick();
 
-  //   cepEl.triggerEventHandler('input', null);
-  //   tick();
-
-  //   expect(endereco.endereco).toBe(enderecoTest.endereco, 'O endereço é diferente');
-  //   expect(endereco.bairro).toBe(enderecoTest.bairro, 'O bairro é diferente');
-  //   expect(endereco.cep).toBe(enderecoTest.cep, 'O cep é diferente');
-  //   expect(endereco.complemento).toBe(enderecoTest.complemento, 'O complemento é diferente');
-  //   expect(endereco.complemento2).toBe(enderecoTest.complemento2, 'O complemento2 é diferente');
-  //   expect(endereco.uf).toBe(enderecoTest.uf);
+    expect(estadoTest).toBeDefined();
+    expect(estadoTest.nome).toBe('Teste', 'O nome do estado é diferente');
+    expect(estadoTest.sigla).toBe('TE', 'A sigla é diferente');
   }));
-
 });

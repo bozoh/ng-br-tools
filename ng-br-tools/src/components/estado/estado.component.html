@@ -7,9 +7,8 @@
   </select>
 </div> -->
 <div id="estados" class = "dropdown">
-  <div class="item" *ngFor="let e of estados | async as estados;"
-    (click)="setSelected(this, e)"
-  >
+  <div class="item" id="item" *ngFor="let e of estados | async as estados;"
+    (click)="setSelected($event, e)">
       <span [class.to-left]="txtPosition()">
         <span *ngIf="!hideNomes"
           class='nome-estado'>

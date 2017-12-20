@@ -81,10 +81,11 @@ export class EstadoComponent implements OnInit {
  }
 
   setSelected(event, e: Estado) {
-    console.error({ 'name': 'idx', 'payload': e});
     console.error({ 'name': 'event', 'payload': event});
+    const target = event.target || event.srcElement || event.currentTarget;
+    console.error({ 'name': 'target', 'payload': target.parentElement.parentElement});
+    target.class = 'selected';
     this.onEstado.emit(e);
-    // console.error({ 'name': 'estado', 'payload': this._lstEstados[i]});
   }
 
   txtPosition() {
@@ -96,6 +97,9 @@ export class EstadoComponent implements OnInit {
   }
 
   _sortEstados(lst: Estado[], por = 'nome'): Estado[] {
+    if (lst.length <= 1) {
+      return lst;
+    }
     if (por === 'nome') {
       return lst.slice(0).sort((e1, e2) => {
           if (e1.nome === e2.nome) { return 0; }
