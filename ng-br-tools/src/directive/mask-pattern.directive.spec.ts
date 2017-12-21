@@ -1,4 +1,4 @@
-import {  ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed} from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { MaskPatternDirective } from './mask-pattern.directive';
 import { By } from '@angular/platform-browser';

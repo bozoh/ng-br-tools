@@ -13,8 +13,8 @@ export * from './components/cep/cep.service.factory';
 export * from './components/cep/cep.service.interface';
 export * from './components/cep/endereco.model';
 export * from './components/estado/estado.component';
-export * from './components/estado/estado.service.factory';
-export * from './components/estado/estado.service.interface';
-export * from './components/estado/estado.model';
+export * from './services/estado/estado.service.factory';
+export * from './services/estado/estado.service.interface';
+export * from './services/estado/estado.model';
 
 export * from './ng-br-tools.module';

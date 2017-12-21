@@ -1,3 +1,4 @@
+import { LstEstadoDirective } from './directive/lst-estado.directive';
 import { EstadoComponent } from './components/estado/estado.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -29,24 +30,26 @@ import { CepComponent } from './components/cep/cep.component';
     CPFValidator,
     CNPJValidator,
     EstadoComponent,
+    LstEstadoDirective,
   ],
   imports: [
     CommonModule
   ],
   providers: [],
-  exports: [
-    CepComponent,
-    MaskPatternDirective,
-    CepPatternDirective,
-    CpfPatternDirective,
-    CnpjPatternDirective,
-    MaskPatternPipe,
-    CepPatternPipe,
-    CpfPatternPipe,
-    CnpjPatternPipe,
-    CPFValidator,
-    CNPJValidator,
-    EstadoComponent,
-  ],
+  exports: this.declarations,
+  //  [
+  //   CepComponent,
+  //   MaskPatternDirective,
+  //   CepPatternDirective,
+  //   CpfPatternDirective,
+  //   CnpjPatternDirective,
+  //   MaskPatternPipe,
+  //   CepPatternPipe,
+  //   CpfPatternPipe,
+  //   CnpjPatternPipe,
+  //   CPFValidator,
+  //   CNPJValidator,
+  //   EstadoComponent,
+  // ],
 })
 export class NgBrToolsModule { }

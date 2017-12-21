@@ -4,11 +4,13 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import { Estado } from './estado.model';
+
 import { EstadoComponent } from './estado.component';
-import { EstadoServiceIntfce } from './estado.service.interface';
-import { ESTADO_SERVICE, EstadoServiceFactory } from './estado.service.factory';
-import { debug } from 'util';
+
+import { Estado } from '../../services/estado/estado.model';
+import { ESTADO_SERVICE, EstadoServiceFactory } from '../../services/estado/estado.service.factory';
+import { EstadoServiceIntfce } from '../../services/estado/estado.service.interface';
+
 
 
 

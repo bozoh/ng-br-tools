@@ -1,11 +1,11 @@
-import { Estado } from './estado.model';
 import { Component, OnInit, Input, Inject, EventEmitter, Output } from '@angular/core';
-import { ESTADO_SERVICE } from './estado.service.factory';
-import { EstadoServiceIntfce } from './estado.service.interface';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
 
+import { Estado } from '../../services/estado/estado.model';
+import { ESTADO_SERVICE } from '../../services/estado/estado.service.factory';
+import { EstadoServiceIntfce } from '../../services/estado/estado.service.interface';
 @Component({
   selector: 'ng-br-tools-estados',
   templateUrl: './estado.component.html',
