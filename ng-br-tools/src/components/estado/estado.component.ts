@@ -4,9 +4,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
 
 import { Estado } from '../../services/estado/estado.model';
-import { ESTADO_SERVICE } from '../../services/estado/estado.service.factory';
-import { EstadoServiceIntfce } from '../../services/estado/estado.service.interface';
+
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'ng-br-tools-estados',
   templateUrl: './estado.component.html',
   styleUrls: ['./estado.component.css']
@@ -38,13 +38,10 @@ export class EstadoComponent implements OnInit {
   @Output()
   onError: EventEmitter<string> = new EventEmitter<string>();
 
-  private _estadoService: EstadoServiceIntfce;
-  private _estados: Observable<Estado[]>;
+  private _estados: Estado[];
   private _selectedIdx = -1;
 
-  constructor(@Inject(ESTADO_SERVICE) estadoService: EstadoServiceIntfce ) {
-    this._estadoService = estadoService;
-  }
+  constructor() { }
 
   ngOnInit(): void {
     if (!(this._txtPosition) && (!this._flagPosition)) {
@@ -69,16 +66,6 @@ export class EstadoComponent implements OnInit {
       this._flagPosition = 'left';
       this._txtPosition = 'right';
     }
-    // Carregando os estados
-    let resp = this._estadoService.buscaEstados();
-    if (resp instanceof Promise) {
-      resp = Observable.fromPromise((<Promise<Estado[]>>resp));
-    }
-    this._estados = (<Observable<Estado[]>>resp)
-        .map((estados: Estado[]) => {
-          return this._sortEstados(estados, this._orderBy);
-        }
-      );
  }
 
   setSelected(e: Estado, idx: number) {
@@ -98,23 +85,6 @@ export class EstadoComponent implements OnInit {
     return !this._flagPosition || this._flagPosition === 'left';
   }
 
-  _sortEstados(lst: Estado[], por = 'nome'): Estado[] {
-    if (lst.length <= 1) {
-      return lst;
-    }
-    if (por === 'nome') {
-      return lst.slice(0).sort((e1, e2) => {
-          if (e1.nome === e2.nome) { return 0; }
-            return (e1.nome < e2.nome ) ? -1 : 1;
-        });
-    } else if (por === 'sigla') {
-      return lst.slice(0).sort((e1, e2) => {
-        if (e1.sigla === e2.sigla) { return 0; }
-          return (e1.sigla < e2.sigla ) ? -1 : 1;
-      });
-    }
-  }
-
   get hideFlags(): boolean {
     return this._hideFlags;
   }
@@ -127,7 +97,10 @@ export class EstadoComponent implements OnInit {
     return this._hideSiglas;
   }
 
-  get estados(): Observable<Estado[]> {
+  set estados(e: Estado[]) {
+    this._estados = e;
+  }
+  get estados(): Estado[] {
     return this._estados;
   }
 }

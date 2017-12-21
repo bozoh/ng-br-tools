@@ -1,3 +1,4 @@
+import { LstEstadoDirective } from './../../directive/lst-estado.directive';
 /* tslint:disable:no-unused-variable */
 import { fakeAsync, tick, async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -29,7 +30,7 @@ describe('EstadoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EstadoComponent ],
+      declarations: [ EstadoComponent, LstEstadoDirective ],
       providers: [
         MockedEstadoService,
         {
