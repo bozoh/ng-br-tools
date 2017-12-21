@@ -40,6 +40,7 @@ export class EstadoComponent implements OnInit {
 
   private _estadoService: EstadoServiceIntfce;
   private _estados: Observable<Estado[]>;
+  private _selectedIdx = -1;
 
   constructor(@Inject(ESTADO_SERVICE) estadoService: EstadoServiceIntfce ) {
     this._estadoService = estadoService;
@@ -80,12 +81,13 @@ export class EstadoComponent implements OnInit {
       );
  }
 
-  setSelected(event, e: Estado) {
-    console.error({ 'name': 'event', 'payload': event});
-    const target = event.target || event.srcElement || event.currentTarget;
-    console.error({ 'name': 'target', 'payload': target.parentElement.parentElement});
-    target.class = 'selected';
+  setSelected(e: Estado, idx: number) {
+    this._selectedIdx = idx;
     this.onEstado.emit(e);
+  }
+
+  getSelected(): number {
+    return this._selectedIdx;
   }
 
   txtPosition() {
