@@ -97,7 +97,7 @@ export class EstadoComponent implements OnInit {
     return this._hideSiglas;
   }
 
-  set estados(e: Estado[]) {
+  setEstados(e) {
     this._estados = e;
   }
   get estados(): Estado[] {

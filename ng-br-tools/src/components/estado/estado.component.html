@@ -6,10 +6,8 @@
     </option>
   </select>
 </div> -->
-<div id="estados" class = "dropdown">
-  <div ng-br-tools-lst-estados
-  (onEstados)="estados=$event"
-  [ngClass]="{item: true, selected: i == getSelected()}"
+<div id="estados" class = "dropdown" (ng-br-tools-lst-estados)="setEstados($event)">
+  <div [ngClass]="{item: true, selected: i == getSelected()}"
   id="item" *ngFor="let e of estados; let i = index"
     (click)="setSelected(e, i)">
       <span [class.to-left]="txtPosition()">

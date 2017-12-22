@@ -1,5 +1,3 @@
-import { LstEstadoDirective } from './../../directive/lst-estado.directive';
-/* tslint:disable:no-unused-variable */
 import { fakeAsync, tick, async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
@@ -7,12 +5,10 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { EstadoComponent } from './estado.component';
-
-import { Estado } from '../../services/estado/estado.model';
-import { ESTADO_SERVICE, EstadoServiceFactory } from '../../services/estado/estado.service.factory';
-import { EstadoServiceIntfce } from '../../services/estado/estado.service.interface';
-
-
+import { LstEstadoDirective } from './../../directive/lst-estado.directive';
+import { Estado } from './../../services/estado/estado.model';
+import { ESTADO_SERVICE, EstadoServiceFactory } from './../../services/estado/estado.service.factory';
+import { EstadoServiceIntfce } from './../../services/estado/estado.service.interface';
 
 
 class MockedEstadoService implements EstadoServiceIntfce {
@@ -40,10 +36,11 @@ describe('EstadoComponent', () => {
         }
       ],
     }).compileComponents().then(() => {
-      // fixture = TestBed.createComponent(EstadoComponent);
-      // estadoComponent = fixture.componentInstance;
-      estadoServiceTest = TestBed.get(ESTADO_SERVICE);
-      // fixture.detectChanges();
+      fixture = TestBed.createComponent(EstadoComponent);
+      estadoComponent = fixture.componentInstance;
+      estadoServiceTest = fixture.debugElement.injector.get(ESTADO_SERVICE);
+      // TestBed.get(ESTADO_SERVICE);
+      fixture.detectChanges();
     });
   }));
 
@@ -51,36 +48,25 @@ describe('EstadoComponent', () => {
     expect(estadoServiceTest instanceof MockedEstadoService).toBeTruthy();
   });
 
-  it('Deve chamar o método buscaEstados no serviço', () => {
-    spyOn(estadoServiceTest, 'buscaEstados').and.callThrough();
-    fixture = TestBed.createComponent(EstadoComponent);
-    estadoComponent = fixture.componentInstance;
-    fixture.detectChanges();
-    expect(estadoServiceTest.buscaEstados).toHaveBeenCalled();
-  });
-
-
   it('Deve emitir um estado quando for selecionato ', fakeAsync(() => {
-    fixture = TestBed.createComponent(EstadoComponent);
-    estadoComponent = fixture.componentInstance;
-    let el: DebugElement;
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      el = fixture.debugElement.query(By.css('#item'));
-    });
-    tick();
-    expect(el).toBeDefined();
-    expect(el).not.toBeNull();
-
+    // Adicionando um subscribe para obter o estado clicado
     let estadoTest: Estado;
     estadoComponent.onEstado.subscribe((value) => estadoTest = value);
-    el.triggerEventHandler('click', null);
     fixture.detectChanges();
     tick();
+    fixture.detectChanges();
 
-    // expect(estadoTest).toBeDefined('Nenhum estado retornado');
-    // expect(estadoTest.nome).toBe('Teste', 'O nome do estado é diferente');
-    // expect(estadoTest.sigla).toBe('TE', 'A sigla é diferente');
+    // Simulando um click no primeiro ítem da lista de estado
+    // para disparar o evento do emiter e capturar o estado
+    const el = fixture.debugElement.query(By.css('#item'));
+    expect(el).toBeDefined();
+    expect(el).not.toBeNull();
+    el.triggerEventHandler('click', null);
+    tick();
+    fixture.detectChanges();
+    expect(estadoTest).toBeDefined('Nenhum estado retornado');
+    expect(estadoTest.nome).toBe('Teste', 'O nome do estado é diferente');
+    expect(estadoTest.sigla).toBe('TE', 'A sigla é diferente');
+
   }));
 });

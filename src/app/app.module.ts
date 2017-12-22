@@ -1,13 +1,15 @@
-import { LstEstadosIBGEService } from './services/lst-estados-ibge.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
-import { NgBrToolsModule, CEP_SERVICE, CepServiceFactory, ESTADO_SERVICE, EstadoServiceFactory } from 'ng-br-tools';
-import { SigepWebCepService } from './services/sigep-web-cep.service';
-import { LstEstadosSimplesService } from './services/lst-estados-simples.service';
+import { NgBrToolsModule, CEP_SERVICE,
+  CepServiceFactory, ESTADO_SERVICE,
+  EstadoServiceFactory } from 'ng-br-tools';
+  import { SigepWebCepService } from './services/sigep-web-cep.service';
+  import { LstEstadosSimplesService } from './services/lst-estados-simples.service';
+  import { LstEstadosIBGEService } from './services/lst-estados-ibge.service';
 
 
 
