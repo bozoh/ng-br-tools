@@ -9,7 +9,7 @@
     "test": "npm run build:lib && ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:lib": "ng-packagr"
+    "build:lib": "ng-packagr -p ./ng-br-tools/ng-package.json"
   },
   "private": true,
   "dependencies": {
@@ -42,7 +42,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "^1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "ng-packagr": "^1.6.0",
+    "ng-packagr": "^1.7.0",
     "protractor": "^5.2.2",
     "ts-node": "^4.0.2",
     "tslint": "~5.8.0",
