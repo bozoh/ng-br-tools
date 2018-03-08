@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { StringFormatter, CEP_MASK } from '../locallib/string-formatter.class';
 
 @Pipe({
-  name: 'cep-pattern'
+  name: 'ng-br-tools-cep-pattern-pipe'
 })
 export class CepPatternPipe implements PipeTransform {
 

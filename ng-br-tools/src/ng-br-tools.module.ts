@@ -1,5 +1,3 @@
-import { LstEstadoDirective } from './directive/lst-estado.directive';
-import { EstadoComponent } from './components/estado/estado.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -13,14 +11,15 @@ import { CnpjPatternDirective } from './directive/cnpj-pattern.directive';
 import { CpfPatternDirective } from './directive/cpf-pattern.directive';
 import { CepPatternDirective } from './directive/cep-pattern.directive';
 import { MaskPatternDirective } from './directive/mask-pattern.directive';
-import { CepComponent } from './components/cep/cep.component';
+import { CepSearchDirective } from './directive/cep-search.directive';
+import { LstEstadoDirective } from './directive/lst-estado.directive';
 
 
 @NgModule({
   declarations: [
-    CepComponent,
     MaskPatternDirective,
     CepPatternDirective,
+    CepSearchDirective,
     CpfPatternDirective,
     CnpjPatternDirective,
     MaskPatternPipe,
@@ -29,7 +28,6 @@ import { CepComponent } from './components/cep/cep.component';
     CnpjPatternPipe,
     CPFValidator,
     CNPJValidator,
-    EstadoComponent,
     LstEstadoDirective,
   ],
   imports: [
@@ -37,9 +35,9 @@ import { CepComponent } from './components/cep/cep.component';
   ],
   providers: [],
   exports:  [
-    CepComponent,
     MaskPatternDirective,
     CepPatternDirective,
+    CepSearchDirective,
     CpfPatternDirective,
     CnpjPatternDirective,
     MaskPatternPipe,
@@ -48,7 +46,6 @@ import { CepComponent } from './components/cep/cep.component';
     CnpjPatternPipe,
     CPFValidator,
     CNPJValidator,
-    EstadoComponent,
     LstEstadoDirective,
   ],
 })

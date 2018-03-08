@@ -1,17 +1,16 @@
-import { Directive, Input, HostBinding, HostListener, OnInit, ElementRef } from '@angular/core';
+import { Directive, Input, HostBinding, HostListener, OnInit, ElementRef} from '@angular/core';
 import { StringFormatter } from '../locallib/string-formatter.class';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[placeholder]'
-  // selector: '[mask-pattern]'
+  selector: '[ng-br-tools-mask-pattern]'
 })
 export class MaskPatternDirective implements OnInit {
 
   // tslint:disable-next-line:no-input-rename
-  @Input('placeholder') pattern = '';
-  // @Input('mask-pattern') pattern = '';
-  @Input() showPlaceholder = true;
+  @Input('ng-br-tools-mask-pattern') pattern;
+  // tslint:disable-next-line:no-input-rename
+  @Input('ng-br-tools-show-placeholder') showPlaceholder = true;
   private patternStr: string[] = [];
   private patternArr: string[] = [];
 
@@ -23,9 +22,10 @@ export class MaskPatternDirective implements OnInit {
     }
   }
 
-  @HostListener('input', ['$event'])  onkeyup(e) {
-    const input = e.target;
+
+  @HostListener('input', ['$event'])
+  onInput(event: KeyboardEvent) {
+    const input = (event.target as HTMLInputElement);
     input.value = StringFormatter.maskedFormatter(input.value, this.pattern);
   }
-
 }

@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Injectable, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { CepComponent, Endereco } from 'ng-br-tools';
+import { Endereco } from 'ng-br-tools';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import { CepComponent, Endereco } from 'ng-br-tools';
 })
 @Injectable()
 export class AppComponent implements OnInit {
-  @ViewChild(CepComponent) cepComponent: CepComponent;
+  // @ViewChild(CepComponent) cepComponent: CepComponent;
   title = 'app';
   endereco: Endereco;
   hasEndereco = false;

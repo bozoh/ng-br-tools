@@ -6,7 +6,7 @@ import { CepPatternPipe } from './cep-pattern.pipe';
 
 
 
-describe('Pipe: CepPattern', () => {
+describe('Pipe: ng-br-tools-cep-pattern-pipe', () => {
   let pipe: CepPatternPipe;
   beforeEach(() => {
     pipe = new CepPatternPipe();

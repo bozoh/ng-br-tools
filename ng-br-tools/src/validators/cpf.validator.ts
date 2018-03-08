@@ -4,7 +4,7 @@ import { BrValidator } from '../locallib/br-validator.class';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[cpfValidator][ngModel],[cpfValidator][formControl],[cpfValidator][formControlName]',
+  selector: '[ng-br-tools-cpf-validator][ngModel],[ng-br-tools-cpf-validator][formControl],[ng-br-tools-cpf-validator][formControlName]',
   providers: [
     {
       provide: NG_VALIDATORS,

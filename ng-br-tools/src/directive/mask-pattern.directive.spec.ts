@@ -9,11 +9,11 @@ import { StringFormatter } from '../locallib/string-formatter.class';
   // tslint:disable-next-line:component-selector
   template: `
     <input name="test-cpf-mask" name="test-cpf-mask" type="text"
-      [placeholder]="'###.###.###-##'" />
+      [ng-br-tools-mask-pattern]="'###.###.###-##'" />
     <input name="test-cnpj-mask" type="text"
-      [placeholder]="'__.___.___/____-__'" [showPlaceholder]="false"  />
+      [ng-br-tools-mask-pattern]="'__.___.___/____-__'" [ng-br-tools-show-placeholder]="false"  />
     <input name="test-cel-mask" type="text"
-      [placeholder]="'+00 (00) 0-0000-0000'" />
+      [ng-br-tools-mask-pattern]="'+00 (00) 0-0000-0000'" />
     <input name="no-mask" type="text" />
   `
 })

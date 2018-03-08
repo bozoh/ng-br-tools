@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { StringFormatter } from '../locallib/string-formatter.class';
 
 @Pipe({
-  name: 'mask-pattern'
+  name: 'ng-br-tools-mask-pattern-pattern-pipe'
 })
 export class MaskPatternPipe implements PipeTransform {
 

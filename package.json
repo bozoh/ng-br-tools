@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "npm run build:lib && ng serve --dev --proxy-config proxy.config.json",
     "build": "npm run build:lib && ng build",
-    "test": "npm run build:lib && ng test",
+    "test": "npm run build:lib && ng test ",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:lib": "ng-packagr -p ./ng-br-tools/ng-package.json"
@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^5.1.2",
     "@angular/router": "^5.1.2",
     "core-js": "^2.5.3",
+    "intl": "^1.2.5",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.14"
   },
@@ -42,7 +43,9 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "^1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^1.0.4",
     "ng-packagr": "^2.1.0",
+    "phantomjs-prebuilt": "^2.1.16",
     "protractor": "^5.2.2",
     "ts-node": "^5.0.0",
     "tsickle": "^0.27.2",

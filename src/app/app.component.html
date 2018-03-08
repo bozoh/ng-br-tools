@@ -6,33 +6,29 @@
           <div class="col-sm-5 form-group">
             <label for="cpf">CPF</label>
               <input type="text" name="cpf" id="cpf"
-              [placeholder]="'+## (##) #-####-####'"
-              cpfValidator
-              ngModel>
+              ng-br-tools-cpf-pattern
+              ng-br-tools-cpf-validator
+              ngModel
+              #cc="ngModel">
+          </div>
+          <div *ngIf="cc.dirty && cc.errors" class="error">
+            rrrr
           </div>
         </div>
         <div class="row">
           <div class="col-sm-5 form-group">
             <label for="cep">CEP</label>
-            <ng-br-tools-cep class="teste"
-              [placeholder]="'__.___-___'"
-              (onEndereco)="doEndereco($event)"
-              (onError)="doError($event)">
-              ansmnamsn2  qwuqw
-            </ng-br-tools-cep>
+
+            <input ng-br-tools-cep-search
+            ng-br-tools-cep-pattern
+            (onEndereco)="doEndereco($event)"
+            (onError)="doError($event)" required>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-5 form-group">
             <label for="estados"></label>
-            <ng-br-tools-estados
-              [hide-flags]="false"
-              [hide-nomes]="true"
-              [hide-siglas]="false"
-              [flg-position]="'left'"
-              [txt-position]="'right'"
-              [order-by]="'nome'">
-            </ng-br-tools-estados>
+
           </div>
         </div>
         <div class="row">

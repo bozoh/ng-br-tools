@@ -10,7 +10,7 @@ import { CpfPatternDirective } from './cpf-pattern.directive';
   // tslint:disable-next-line:component-selector
   template: `
     <input name="test-cpf" type="text"
-      cpf-pattern />
+      ng-br-tools-cpf-pattern />
     <input name="no-mask" type="text" />
   `
 })

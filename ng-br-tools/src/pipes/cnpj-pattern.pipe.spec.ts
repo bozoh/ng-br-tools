@@ -5,7 +5,7 @@ import { StringFormatter, CNPJ_MASK } from '../locallib/string-formatter.class';
 import { CnpjPatternPipe } from './cnpj-pattern.pipe';
 
 
-describe('Pipe: CnpjPattern', () => {
+describe('Pipe: ng-br-tools-cep-pattern-pipe', () => {
   let pipe: CnpjPatternPipe;
   beforeEach(() => {
     pipe = new CnpjPatternPipe();

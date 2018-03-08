@@ -4,7 +4,7 @@ import { CPF_MASK } from '../locallib/string-formatter.class';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[cpf-pattern]'
+  selector: '[ng-br-tools-cpf-pattern]'
 })
 export class CpfPatternDirective extends MaskPatternDirective {
 

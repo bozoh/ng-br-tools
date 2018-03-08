@@ -9,14 +9,14 @@ import { CepPatternDirective } from './cep-pattern.directive';
 @Component({
   // tslint:disable-next-line:component-selector
   template: `
-    <input name="test-cpf" type="text"
-      cep-pattern />
-    <input name="no-mask" type="text" />
+    <input name="test-cep" type="text"
+      ng-br-tools-cep-pattern >
+    <input name="no-mask" type="text" >
   `
 })
 class TestCepPatternDirectiveComponent {}
 
-describe('Directive: Teste da Diretiva cep-pattern', () => {
+describe('Directive: Teste da Diretiva (ng-br-tools-cep-pattern)', () => {
   let fixture: ComponentFixture<TestCepPatternDirectiveComponent>;
   let maskedInputs: DebugElement[];
 

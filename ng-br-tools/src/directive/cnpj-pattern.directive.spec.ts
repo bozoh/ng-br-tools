@@ -10,8 +10,8 @@ import { CnpjPatternDirective } from './cnpj-pattern.directive';
 @Component({
   // tslint:disable-next-line:component-selector
   template: `
-    <input name="test-cpf" type="text"
-      cnpj-pattern />
+    <input name="test-cnpj" type="text"
+      ng-br-tools-cnpj-pattern />
     <input name="no-mask" type="text" />
   `
 })
