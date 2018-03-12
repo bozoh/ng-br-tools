@@ -4,7 +4,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { MaskPatternPipe } from './mask-pattern.pipe';
 import { StringFormatter } from '../locallib/string-formatter.class';
 
-describe('Pipe: ng-br-tools-mask-pattern-pattern-pipe', () => {
+describe('Pipe: ngBrToolsMaskPatternPipe', () => {
   let pipe: MaskPatternPipe;
   beforeEach(() => {
     pipe = new MaskPatternPipe();

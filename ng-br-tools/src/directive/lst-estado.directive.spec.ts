@@ -12,8 +12,8 @@ import { ESTADO_SERVICE, EstadoServiceFactory } from './../services/estado/estad
 @Component({
   // tslint:disable-next-line:component-selector
   template: `
-  <select (ng-br-tools-lst-estados)="setEstados($event)"></select>
-  <div ng-br-tools-lst-estados></div>
+  <select (ngBrToolsListEstados)="setEstados($event)"></select>
+  <div ngBrToolsListEstados></div>
   `
 })
 class TestLstEstadoDirectiveComponent {
@@ -32,7 +32,7 @@ class MockedEstadoService implements EstadoServiceIntfce {
   }
 }
 
-describe('Directive: LstEstadoDirective (ng-br-tools-lst-estados)', () => {
+describe('Directive: LstEstadoDirective (ngBrToolsListEstados)', () => {
   let fixture: ComponentFixture<TestLstEstadoDirectiveComponent>;
   let lstEstadoComponent: TestLstEstadoDirectiveComponent;
   let directive: LstEstadoDirective;

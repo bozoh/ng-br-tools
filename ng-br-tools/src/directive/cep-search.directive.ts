@@ -2,7 +2,7 @@ import { CepPatternDirective } from './cep-pattern.directive';
 import {
   Directive, ElementRef,
   Inject, EventEmitter,
-  Output, Input, OnInit, HostListener, AfterViewInit, AfterViewChecked
+  Output, Input, HostListener
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -12,18 +12,17 @@ import { Endereco } from './../services/cep/endereco.model';
 import { CepServiceIntfce } from './../services/cep/cep.service.interface';
 import { CEP_SERVICE } from './../services/cep/cep.service.factory';
 import { StringFormatter, CEP_MASK } from '../locallib/string-formatter.class';
-import { MaskPatternDirective } from './mask-pattern.directive';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[ng-br-tools-cep-search]'
+  selector: '[ngBrToolsCepSearch]'
 })
 export class CepSearchDirective {
   // tslint:disable-next-line:no-input-rename
   @Output() onEndereco: EventEmitter<Endereco> = new EventEmitter<Endereco>();
   @Output() onError: EventEmitter<any> = new EventEmitter<any>();
+
   private _cepService: CepServiceIntfce;
-  private _pattern;
 
   constructor(
     private cepEl: ElementRef,
@@ -34,9 +33,15 @@ export class CepSearchDirective {
 
   @HostListener('input', ['$event'])
   onInput(e) {
-    const inputValue: string = (e.target as HTMLInputElement).value;
-    const cepClear = StringFormatter.clearFormat(inputValue,
-      this._pattern ? this._pattern : CEP_MASK);
+    const cepInput = (e.target as HTMLInputElement);
+    let pattern: string;
+    if (cepInput.hasAttribute('ngBrToolsMaskPattern')) {
+      pattern = cepInput.getAttribute('ngBrToolsMaskPattern');
+    } else {
+      pattern = CEP_MASK;
+    }
+    const cepClear = StringFormatter.clearFormat(cepInput.value,
+      pattern);
     if (cepClear.length === 8) {
       this.doSearch(cepClear);
     }

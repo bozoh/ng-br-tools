@@ -4,7 +4,7 @@ import { CEP_MASK } from '../locallib/string-formatter.class';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[ng-br-tools-cep-pattern]'
+  selector: '[ngBrToolsCepPattern]'
 })
 export class CepPatternDirective extends MaskPatternDirective {
 

@@ -10,13 +10,13 @@ import { CpfPatternDirective } from './cpf-pattern.directive';
   // tslint:disable-next-line:component-selector
   template: `
     <input name="test-cpf" type="text"
-      ng-br-tools-cpf-pattern />
+     ngBrToolsCpfPattern />
     <input name="no-mask" type="text" />
   `
 })
 class TestCpfPatternDirectiveComponent {}
 
-describe('Directive: Teste da Diretiva cpf-pattern', () => {
+describe('Directive: Teste da Diretiva ngBrToolsCpfPattern', () => {
   let fixture: ComponentFixture<TestCpfPatternDirectiveComponent>;
   let maskedInputs: DebugElement[];
 

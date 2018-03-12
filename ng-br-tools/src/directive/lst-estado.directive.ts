@@ -14,14 +14,14 @@ import { ESTADO_SERVICE } from './../services/estado/estado.service.factory';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[ng-br-tools-lst-estados]'
+  selector: '[ngBrToolsListEstados]'
 })
 export class LstEstadoDirective implements OnInit {
 
   // tslint:disable-next-line:no-input-rename
-  @Input('order-by') orderBy = 'nome';
+  @Input('ngBrToolsOrderBy') orderBy = 'nome';
   // tslint:disable-next-line:no-output-rename
-  @Output('ng-br-tools-lst-estados') onEstados: EventEmitter<Estado[]> = new EventEmitter<Estado[]>();
+  @Output('ngBrToolsListEstados') onEstados: EventEmitter<Estado[]> = new EventEmitter<Estado[]>();
 
   private _estadoService: EstadoServiceIntfce;
   constructor(private el: ElementRef,

@@ -4,7 +4,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { StringFormatter, CPF_MASK } from '../locallib/string-formatter.class';
 import { CpfPatternPipe } from './cpf-pattern.pipe';
 
-describe('Pipe: ng-br-tools-cpf-pattern-pipe', () => {
+describe('Pipe: ngBrToolsCpfPatternPipe', () => {
   let pipe: CpfPatternPipe;
   beforeEach(() => {
     pipe = new CpfPatternPipe();

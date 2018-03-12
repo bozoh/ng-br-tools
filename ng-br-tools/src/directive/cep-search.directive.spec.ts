@@ -12,7 +12,7 @@ import { CepSearchDirective } from './cep-search.directive';
 @Component({
   // tslint:disable-next-line:component-selector
   template: `
-  <input ng-br-tools-cep-search (onEndereco)="setEndereco($event)" ng-br-tools-mask-pattern='##.###-###' >
+  <input ngBrToolsCepSearch (onEndereco)="setEndereco($event)" ngBrToolsMaskPattern='##.###-###' >
   `
 })
 class TestCepDirectiveComponent {
@@ -34,7 +34,7 @@ class MockedCepService implements CepServiceIntfce {
   }
 }
 
-describe('Directive: Teste da Diretiva (ng-br-tools-cep)', () => {
+describe('Directive: Teste da Diretiva (ngBrToolsCepSearch)', () => {
   let fixture: ComponentFixture<TestCepDirectiveComponent>;
   let directive: CepSearchDirective;
   let tstService: CepServiceIntfce;

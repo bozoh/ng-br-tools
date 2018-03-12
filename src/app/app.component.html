@@ -6,8 +6,8 @@
           <div class="col-sm-5 form-group">
             <label for="cpf">CPF</label>
               <input type="text" name="cpf" id="cpf"
-              ng-br-tools-cpf-pattern
-              ng-br-tools-cpf-validator
+              ngBrToolsCpfPattern
+              ngBrToolsCpfValidator
               ngModel
               #cc="ngModel">
           </div>
@@ -18,11 +18,9 @@
         <div class="row">
           <div class="col-sm-5 form-group">
             <label for="cep">CEP</label>
-
-            <input ng-br-tools-cep-search
-            ng-br-tools-cep-pattern
+            <input ngBrToolsCepSearch
             (onEndereco)="doEndereco($event)"
-            (onError)="doError($event)" required>
+            (onError)="doError($event)" >
           </div>
         </div>
         <div class="row">
@@ -42,7 +40,7 @@
   </div>
   <div class="row">
     <div class="col-sm-6" *ngIf="hasEndereco">
-        <h3>{{endereco.cep}}</h3>
+        <h3>{{endereco.cep | ngBrToolsCepPatternPipe}}</h3>
         <p>{{endereco.endereco}}</p>
         <p>{{endereco.complemento}}</p>
         <p>{{endereco.complemento2}}</p>

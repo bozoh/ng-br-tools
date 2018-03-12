@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { StringFormatter, CPF_MASK } from '../locallib/string-formatter.class';
 
 @Pipe({
-  name: 'ng-br-tools-cpf-pattern-pipe'
+  name: 'ngBrToolsCpfPatternPipe'
 })
 export class CpfPatternPipe implements PipeTransform {
 

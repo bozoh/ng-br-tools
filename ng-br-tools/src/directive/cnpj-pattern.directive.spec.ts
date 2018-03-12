@@ -11,13 +11,13 @@ import { CnpjPatternDirective } from './cnpj-pattern.directive';
   // tslint:disable-next-line:component-selector
   template: `
     <input name="test-cnpj" type="text"
-      ng-br-tools-cnpj-pattern />
+      ngBrToolsCnpjPattern />
     <input name="no-mask" type="text" />
   `
 })
 class TestCnpjPatternDirectiveComponent {}
 
-describe('Directive: Teste da Diretiva cnpj-pattern', () => {
+describe('Directive: Teste da Diretiva ngBrToolsCnpjPattern', () => {
   let fixture: ComponentFixture<TestCnpjPatternDirectiveComponent>;
   let maskedInputs: DebugElement[];
 

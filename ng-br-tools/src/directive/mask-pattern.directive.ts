@@ -3,14 +3,14 @@ import { StringFormatter } from '../locallib/string-formatter.class';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[ng-br-tools-mask-pattern]'
+  selector: '[ngBrToolsMaskPattern]'
 })
 export class MaskPatternDirective implements OnInit {
 
   // tslint:disable-next-line:no-input-rename
-  @Input('ng-br-tools-mask-pattern') pattern;
+  @Input('ngBrToolsMaskPattern') pattern;
   // tslint:disable-next-line:no-input-rename
-  @Input('ng-br-tools-show-placeholder') showPlaceholder = true;
+  @Input('ngBrToolsShowPlacholder') showPlaceholder = true;
   private patternStr: string[] = [];
   private patternArr: string[] = [];
 
