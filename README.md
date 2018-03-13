@@ -12,9 +12,17 @@ Utilitário feito em angular 4/5 específico para sistemas brasileiros.
 1. Formatador de CEP e auxílio para a busca do CEP
 1. Lista de estados
 
+## Instalação
+
+Para instalar basta utilizar o comando:
+
+```bash
+npm install ng-br-tools
+```
+
 ## Servidor de exemplo
 
-Esse repositório lib vem com um projeto de exemplo do uso da lib, para rodá-lo execute `npm start`. Depois só usar o endereço `http://localhost:4200/` em seu browser.
+Esse repositório lib vem com um projeto de exemplo do uso da lib, para rodá-lo execute `npm start`. Depois só usar o endereço `http://localhost:4200/` em seu navegador.
 
 ## Como gerar um Build
 
