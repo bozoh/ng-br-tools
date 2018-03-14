@@ -4,62 +4,97 @@ export const CPF_MASK = '___.___.___-__';
 
 export class StringFormatter {
 
-  public static maskedFormatter(input: string, mask: string): string {
-    // O caracter que representa máscara deve ser o caracter mais comum na string
-    // os demais são de formatação, então retorno o caracter mais comum
-    const maskChr = StringFormatter.getMostCommonChar(mask);
+  private formattedMaskArray: string[];
+  private unchangeMask: string;
+  private maskCharsSet: Set<string> = new Set<string>();
+  private readonly placeholderChar = '¬';
 
-    // Tranfomando a máscara em um array, mais fácil
-    // para formatar o texto
-    const maskArr = mask.split('');
-
-    // Limpando a formatação antes de aplicar a máscara
-    // e tranforamando em um array, pois simplifica o código
-    const inputArr = StringFormatter.clearFormat(input, mask).split('');
-
-    let currMaskChar = '';
-    let newValue = '';
-    while (inputArr.length > 0 && maskArr.length > 0) {
-      currMaskChar = maskArr.shift();
-      // Se o caracter da máscara for #, adiciona
-      // um caracter do inputArr a string formatada
-      // e remove o caracter do maskArr
-      if (currMaskChar === maskChr) {
-        newValue += inputArr.shift();
-      } else {
-        // Se o caracter da máscara não for #, adiciona esse
-        // ao string formatada
-        newValue += currMaskChar;
-      }
-    }
-    return newValue + maskArr.join('');
+  /**
+   * Retorna um texto formatado usanda uma máscara
+   * @param txt Texto a ser formatado
+   * @param mask máscara
+   */
+  public static maskedFormatter(txt: string, mask: string): string {
+    const strFmt = new StringFormatter(mask);
+    return strFmt.format(txt);
   }
 
-  public static clearFormat(str: string, mask: string): string {
-    // O caracter que representa máscara deve ser o caracter mais comum na string
-    // os demais são de formatação, então retorno o caracter mais comum
-    const maskChr = StringFormatter.getMostCommonChar(mask);
-    // Obtém os caracteres de formatação, removento os de máscara,
-    // que vai ser usado para limpar a formatação
-    const maskStr = mask.replace(maskChr, '').split('');
-    // Fazendo uma cópia do input
-    let retVal = str;
-    for (const c of maskStr) {
-      retVal = retVal.replace(c, '');
-    }
-    return retVal;
+  /**
+   * Remove a formatação de uma máscara de um texto
+   * @param txt texto formatado pela máscara mask
+   * @param mask máscara
+   */
+  public static clearFormat(txt: string, mask: string): string {
+    const strFmt = new StringFormatter(mask);
+    return strFmt.stripMask(txt);
   }
 
-  private static getMostCommonChar(str: string): string {
-    const strCountArr: Map<string, number> = new Map();
+  /**
+   * Aplica uma máscara a uma string
+   *
+   * @param mask A máscara desejada
+   * @param maskCharsArray (Opcional) um array contendo as strings da máscara, por exemplo
+   * a máscara DD/MM/AAAA tem que passar o maskCharsArray como ['D', 'M', 'A'], para máscaras
+   * como __/__/____ esse valor de maskCharsArray é opcional, ficando igual a ['_']
+   */
+  constructor(mask: string, maskCharsArray?: string[]) {
+    this.unchangeMask = mask;
+    if (!maskCharsArray) {
+      maskCharsArray = [this.getPlaceholderChar(mask)];
+    }
+    for (const chr of maskCharsArray) {
+      const re = new RegExp(chr, 'gi');
+      mask = mask.replace(re, this.placeholderChar);
+    }
+
+    this.formattedMaskArray = mask.split('');
+    this.formattedMaskArray.forEach((item) => this.maskCharsSet.add(item));
+  }
+
+
+  /**
+   * Retorna um texto sem a formatação da máscara
+   * @param maskedTxt Texto formatado
+   */
+  public stripMask(maskedTxt: string): string {
+    // criando uma cópia do maskedTxt e removendo a marcação
+    return [...maskedTxt.split('')].
+      filter(char => (!this.maskCharsSet.has(char))).join('');
+  }
+
+  /**
+   * Retorna o texto formatado
+   * @param txt texto a ser formatado
+   */
+  public format(txt: string): string {
+    const input = this.stripMask(txt).split('');
+    let formattedStr = this.formattedMaskArray.map((char, idx) => {
+        if (char !== this.placeholderChar) {
+          return char;
+        }
+        if (input.length === 0) {
+          return char;
+        }
+        return input.shift();
+    }).join('');
+    if (formattedStr.indexOf(this.placeholderChar) !== -1 ) {
+      const idx = formattedStr.indexOf(this.placeholderChar);
+      const fmt = formattedStr.substring(0, idx);
+      formattedStr = fmt + this.unchangeMask.substr(idx);
+    }
+    return formattedStr;
+  }
+
+  private getPlaceholderChar(str: string): string {
+    const strCountMap: Map<string, number> = new Map();
     let maxKey = '';
     for (const key of str) {
-      if (!strCountArr.has(key)) {
-        strCountArr.set(key, 1);
+      if (!strCountMap.has(key)) {
+        strCountMap.set(key, 1);
       } else {
-        strCountArr.set(key, strCountArr.get(key) + 1);
+        strCountMap.set(key, strCountMap.get(key) + 1);
       }
-      if (maxKey === '' || strCountArr.get(maxKey) < strCountArr.get(key)) {
+      if (maxKey === '' || strCountMap.get(maxKey) < strCountMap.get(key)) {
         maxKey = key;
       }
     }
