@@ -54,7 +54,7 @@ describe('Directive: Teste da Diretiva (ngBrToolsCepPattern)', () => {
     fixture.detectChanges();
 
     expect(StringFormatter.maskedFormatter)
-      .toHaveBeenCalledWith(cep, CEP_MASK);
+      .toHaveBeenCalledWith(cep, CEP_MASK, [ ]);
   });
 });
 

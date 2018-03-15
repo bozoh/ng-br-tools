@@ -54,7 +54,7 @@ describe('Directive: Teste da Diretiva ngBrToolsCpfPattern', () => {
     fixture.detectChanges();
 
     expect(StringFormatter.maskedFormatter)
-      .toHaveBeenCalledWith(cpf, CPF_MASK);
+      .toHaveBeenCalledWith(cpf, CPF_MASK, [ ]);
   });
 });
 

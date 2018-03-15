@@ -55,7 +55,7 @@ describe('Directive: Teste da Diretiva ngBrToolsCnpjPattern', () => {
     fixture.detectChanges();
 
     expect(StringFormatter.maskedFormatter)
-      .toHaveBeenCalledWith(cnpj, CNPJ_MASK);
+      .toHaveBeenCalledWith(cnpj, CNPJ_MASK, [ ]);
   });
 });
 

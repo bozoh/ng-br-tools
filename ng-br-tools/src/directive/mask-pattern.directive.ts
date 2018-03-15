@@ -11,8 +11,8 @@ export class MaskPatternDirective implements OnInit {
   @Input('ngBrToolsMaskPattern') pattern;
   // tslint:disable-next-line:no-input-rename
   @Input('ngBrToolsShowPlacholder') showPlaceholder = true;
-  private patternStr: string[] = [];
-  private patternArr: string[] = [];
+  // tslint:disable-next-line:no-input-rename
+  @Input('ngBrToolsMaskChars') maskChars;
 
   constructor(private el: ElementRef) { }
 
@@ -22,10 +22,13 @@ export class MaskPatternDirective implements OnInit {
     }
   }
 
-
   @HostListener('input', ['$event'])
   onInput(event: KeyboardEvent) {
     const input = (event.target as HTMLInputElement);
-    input.value = StringFormatter.maskedFormatter(input.value, this.pattern);
+    let maskChars: string[] = [];
+    if (this.maskChars) {
+      maskChars = maskChars.concat(this.maskChars.split(','));
+    }
+    input.value = StringFormatter.maskedFormatter(input.value, this.pattern, maskChars);
   }
 }

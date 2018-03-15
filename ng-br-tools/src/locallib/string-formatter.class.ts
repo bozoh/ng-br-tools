@@ -1,3 +1,5 @@
+import { Injectable } from "@angular/core";
+
 export const CEP_MASK = '_____-___';
 export const CNPJ_MASK = '__.___.___/____-__';
 export const CPF_MASK = '___.___.___-__';
@@ -10,12 +12,16 @@ export class StringFormatter {
   private readonly placeholderChar = '¬';
 
   /**
-   * Retorna um texto formatado usanda uma máscara
+   * Retorna um texto formatado usando uma máscara
    * @param txt Texto a ser formatado
    * @param mask máscara
+   * @param maskChars (opcicional) caracteres da máscara, por exemplo:
+   * A máscara DD/MM/AAAA tem que passar o maskChars como ['D', 'M', 'A'], para máscaras
+   * como __/__/____ o valor de maskChars é opcional pois é obtido automaticamente, ficando
+   * igual a ['_']
    */
-  public static maskedFormatter(txt: string, mask: string): string {
-    const strFmt = new StringFormatter(mask);
+  public static maskedFormatter(txt: string, mask: string, maskChars: string[] = []): string {
+    const strFmt = new StringFormatter(mask, maskChars);
     return strFmt.format(txt);
   }
 
