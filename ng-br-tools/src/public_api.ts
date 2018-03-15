@@ -16,6 +16,8 @@ export * from './directive/cep-search.directive';
 export * from './services/cep/cep.service.factory';
 export * from './services/cep/cep.service.interface';
 export * from './services/cep/endereco.model';
+export * from './directive/data-pattern.directive';
+export * from './pipes/data-pattern.pipe';
 
 
 export * from './ng-br-tools.module';

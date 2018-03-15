@@ -1,3 +1,5 @@
+import { DataPatternPipe } from './pipes/data-pattern.pipe';
+import { DataPatternDirective } from './directive/data-pattern.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -22,10 +24,12 @@ import { LstEstadoDirective } from './directive/lst-estado.directive';
     CepSearchDirective,
     CpfPatternDirective,
     CnpjPatternDirective,
+    DataPatternDirective,
     MaskPatternPipe,
     CepPatternPipe,
     CpfPatternPipe,
     CnpjPatternPipe,
+    DataPatternPipe,
     CPFValidator,
     CNPJValidator,
     LstEstadoDirective,
@@ -40,10 +44,12 @@ import { LstEstadoDirective } from './directive/lst-estado.directive';
     CepSearchDirective,
     CpfPatternDirective,
     CnpjPatternDirective,
+    DataPatternDirective,
     MaskPatternPipe,
     CepPatternPipe,
     CpfPatternPipe,
     CnpjPatternPipe,
+    DataPatternPipe,
     CPFValidator,
     CNPJValidator,
     LstEstadoDirective,
