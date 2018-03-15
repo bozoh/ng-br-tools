@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 export const CEP_MASK = '_____-___';
 export const CNPJ_MASK = '__.___.___/____-__';
 export const CPF_MASK = '___.___.___-__';
+export const DATA_MASK = 'DD/MM/AAAA';
 
 export class StringFormatter {
 
