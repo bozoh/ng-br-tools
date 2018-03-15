@@ -19,8 +19,10 @@ export class CNPJValidator implements Validator {
 
   validate(c: FormControl): { [key: string]: any } {
     if (c.value && c.value.length > 0) {
-      const regex = /\.|-|\//gi;
-      const value = c.value.replace(regex, '');
+      // Limpando qualquer caracter de formatação, só importa os números
+      const value = c.value.split('').filter(
+        (char) => !isNaN(Number(char))
+      ).join('');
 
       if (BrValidator.validaCnpj(value)) {
         return null;
