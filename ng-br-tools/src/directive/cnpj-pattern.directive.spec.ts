@@ -38,7 +38,7 @@ describe('Directive: Teste da Diretiva ngBrToolsCnpjPattern', () => {
     expect(maskedInputs.length).toEqual(1);
   });
 
-  it ('Testando se as máscaras estão atribuidas corretamente', () => {
+  it ('Testando se as máscaras estão atribuídas corretamente', () => {
     // cons maskDir = maskedInputs[0].injector.get(MaskPatternDirective) as MaskPatternDirective;
     const mask1 = maskedInputs[0].injector.get(CnpjPatternDirective).pattern;
     expect(mask1).toBe(CNPJ_MASK);

@@ -97,7 +97,7 @@ describe('Directive: LstEstadoDirective (ngBrToolsListEstados)', () => {
     expect(estados[1].sigla).toEqual('TA');
   }));
 
-  it('Deve por em ordem de nome do estado se o order-by="nome"', fakeAsync(() => {
+  it('Deve por em ordem de nome do estado se o ngBrToolsOrderBy="nome"', fakeAsync(() => {
     let estados: Estado[] = [];
     directive.orderBy = 'nome';
     directive.onEstados.subscribe((e) => estados = e);
@@ -109,7 +109,7 @@ describe('Directive: LstEstadoDirective (ngBrToolsListEstados)', () => {
     expect(estados[1].nome).toEqual('Teste-02');
   }));
 
-  it('Deve por em ordem de sigla do estado se o order-by="sigla"', fakeAsync(() => {
+  it('Deve por em ordem de sigla do estado se o ngBrToolsOrderBy="sigla"', fakeAsync(() => {
     let estados: Estado[] = [];
     directive.orderBy = 'sigla';
     directive.onEstados.subscribe((e) => estados = e);

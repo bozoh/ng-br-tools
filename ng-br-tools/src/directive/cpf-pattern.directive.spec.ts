@@ -37,8 +37,7 @@ describe('Directive: Teste da Diretiva ngBrToolsCpfPattern', () => {
     expect(maskedInputs.length).toEqual(1);
   });
 
-  it ('Testando se as máscaras estão atribuidas corretamente', () => {
-    // cons maskDir = maskedInputs[0].injector.get(MaskPatternDirective) as MaskPatternDirective;
+  it ('Testando se as máscaras estão atribuídas corretamente', () => {
     const mask1 = maskedInputs[0].injector.get(CpfPatternDirective).pattern;
     expect(mask1).toBe(CPF_MASK);
   });

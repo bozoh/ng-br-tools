@@ -21,7 +21,7 @@ import { StringFormatter } from '../locallib/string-formatter.class';
 })
 class TestMaskPatternDirectiveComponent {}
 
-describe('Directive: Teste da Diretiva mask-pattern', () => {
+describe('Directive: Teste da Diretiva ngBrToolsMaskPattern', () => {
   let fixture: ComponentFixture<TestMaskPatternDirectiveComponent>;
   let maskedInputs: DebugElement[];
 
@@ -42,7 +42,7 @@ describe('Directive: Teste da Diretiva mask-pattern', () => {
     expect(maskedInputs.length).toEqual(4);
   });
 
-  it ('Testando se as máscaras estão atribuidas corretamente', () => {
+  it ('Testando se as máscaras estão atribuídas corretamente', () => {
     const mask1 = maskedInputs[0].injector.get(MaskPatternDirective).pattern;
     const mask2 = maskedInputs[1].injector.get(MaskPatternDirective).pattern;
     const mask3 = maskedInputs[2].injector.get(MaskPatternDirective).pattern;
@@ -96,6 +96,4 @@ describe('Directive: Teste da Diretiva mask-pattern', () => {
     const input1 = maskedInputs[1].nativeElement as HTMLInputElement;
     expect(input1.placeholder).toBe('');
   });
-
-
 });

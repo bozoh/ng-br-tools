@@ -48,7 +48,7 @@ describe('Local lib: BrValidator => validaCpf', () => {
     cpfs.push('14421620473');
     cpfs.push('99381620456');
     // Essa sequência de cpf são válidos
-    // se o script só aplicar o algoritimo de verificação
+    // se o script só aplicar o algoritmo de verificação
     // do cpf (CPF com todos os números iguais)
     cpfs.push('00000000000');
     cpfs.push('11111111111');
@@ -125,7 +125,7 @@ describe('Local lib: BrValidator => validaCnpj', () => {
     cnpjs.push('14421620473784');
     cnpjs.push('99381620456454');
     // Essa sequência de cpf são válidos
-    // se o script só aplicar o algoritimo de verificação
+    // se o script só aplicar o algoritmo de verificação
     // do cpf (CPF com todos os números iguais)
     cnpjs.push('00000000000000');
     cnpjs.push('11111111111111');

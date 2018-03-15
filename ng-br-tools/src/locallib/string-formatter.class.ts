@@ -15,7 +15,7 @@ export class StringFormatter {
    * Retorna um texto formatado usando uma máscara
    * @param txt Texto a ser formatado
    * @param mask máscara
-   * @param maskChars (opcicional) caracteres da máscara, por exemplo:
+   * @param maskChars (opcional) caracteres da máscara, por exemplo:
    * A máscara DD/MM/AAAA tem que passar o maskChars como ['D', 'M', 'A'], para máscaras
    * como __/__/____ o valor de maskChars é opcional pois é obtido automaticamente, ficando
    * igual a ['_']

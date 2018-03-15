@@ -25,7 +25,7 @@ describe('Local lib: StringFormatter => maskedFormatter', () => {
     expect(cpfFmt.format(cpf1)).toBe('123.456.789-00');
   });
 
-  it('Testando a formatação de um CPF, inserido parcialmente, tem que formatar parcialemtente', () => {
+  it('Testando a formatação de um CPF, inserido parcialmente', () => {
     let cpf1 = '123.4';
     let cpf2 = '1234';
     expect(cpfFmt.format(cpf1)).toBe('123.4##.###-##');
@@ -51,7 +51,7 @@ describe('Local lib: StringFormatter => maskedFormatter', () => {
     expect(dateFmt.format('101')).toBe('10/1M/AAAA');
     expect(dateFmt.format('101020')).toBe('10/10/20AA');
 
-    // mais caractéres que a máscara só numeros
+    // mais caracteres que a máscara só números
     expect(dateFmt.format('10102010EEEEEE')).toBe('10/10/2010');
 
     // número e formatação
@@ -62,21 +62,21 @@ describe('Local lib: StringFormatter => maskedFormatter', () => {
     expect(dateFmt.format('10/1')).toBe('10/1M/AAAA');
     expect(dateFmt.format('10/10/20')).toBe('10/10/20AA');
 
-    // mais caractéres que a máscara números e formatação
+    // mais caracteres que a máscara números e formatação
     expect(dateFmt.format('10/10/2010EEEEEE')).toBe('10/10/2010');
     expect(dateFmt.format('10/10/2010/EEEEEE')).toBe('10/10/2010');
 
   });
 
   it('Testando formatação de um CPF com mais 11 dígitos, só pega os 11 primeiros', () => {
-    // 16 dígitos, mas cpf só tem 11 (E)
+    // 16 dígitos, mas CPF só tem 11 (E)
     const cpf1 = '12345678900EEEEE';
     expect(cpfFmt.format(cpf1)).toBe('123.456.789-00');
 
   });
 
   it('Testando formatação CNPJ', () => {
-    // 16 dígitos, mas cnpj só tem catorze (E)
+    // 16 dígitos, mas CNPJ só tem catorze (E)
     const cpnpj1 = '00000000000000EEEE';
     expect(cnpjFmt.format(cpnpj1)).toBe('00.000.000/0000-00');
   });
