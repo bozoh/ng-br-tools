@@ -46,7 +46,7 @@ export class StringFormatter {
    */
   constructor(mask: string, maskCharsArray?: string[]) {
     this.unchangeMask = mask;
-    if (!maskCharsArray) {
+    if (!maskCharsArray || maskCharsArray.length <= 0) {
       maskCharsArray = [this.getPlaceholderChar(mask)];
     }
     for (const chr of maskCharsArray) {
@@ -55,7 +55,7 @@ export class StringFormatter {
     }
 
     this.formattedMaskArray = mask.split('');
-    this.formattedMaskArray.forEach((item) => this.maskCharsSet.add(item));
+    this.unchangeMask.split('').forEach((item) => this.maskCharsSet.add(item));
   }
 
 
@@ -75,7 +75,7 @@ export class StringFormatter {
    */
   public format(txt: string): string {
     const input = this.stripMask(txt).split('');
-    let formattedStr = this.formattedMaskArray.map((char, idx) => {
+    let formattedStr = this.formattedMaskArray.map((char) => {
         if (char !== this.placeholderChar) {
           return char;
         }

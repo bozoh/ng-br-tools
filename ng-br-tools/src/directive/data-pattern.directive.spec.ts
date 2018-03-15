@@ -48,7 +48,7 @@ describe('Directive: Teste da Diretiva ngBrToolsDataPattern', () => {
     spyOn(StringFormatter, 'maskedFormatter');
     const data = '10101010';
     const input = maskedInputs[0].nativeElement as HTMLInputElement;
-    const event = new KeyboardEvent('input', null);
+    const event = new KeyboardEvent('keyup', null);
 
     input.value = data;
     input.dispatchEvent(event);

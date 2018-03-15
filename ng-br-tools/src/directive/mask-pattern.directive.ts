@@ -22,13 +22,15 @@ export class MaskPatternDirective implements OnInit {
     }
   }
 
-  @HostListener('input', ['$event'])
+  @HostListener('keyup', ['$event'])
   onInput(event: KeyboardEvent) {
     const input = (event.target as HTMLInputElement);
     let maskChars: string[] = [];
     if (this.maskChars) {
       maskChars = maskChars.concat(this.maskChars.split(','));
     }
+    // REMOVE
+    // console.error('INPT VALUE: ' + input.value + ' <=> Pattern ' + this.pattern + ' - maskChars:' + maskChars);
     input.value = StringFormatter.maskedFormatter(input.value, this.pattern, maskChars);
   }
 }

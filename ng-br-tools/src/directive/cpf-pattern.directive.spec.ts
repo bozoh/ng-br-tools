@@ -46,7 +46,7 @@ describe('Directive: Teste da Diretiva ngBrToolsCpfPattern', () => {
     spyOn(StringFormatter, 'maskedFormatter');
     const cpf = '12345678900';
     const input = maskedInputs[0].nativeElement as HTMLInputElement;
-    const event = new KeyboardEvent('input', null);
+    const event = new KeyboardEvent('keyup', null);
 
     input.value = cpf;
     input.dispatchEvent(event);

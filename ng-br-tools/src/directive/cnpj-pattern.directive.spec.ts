@@ -48,7 +48,7 @@ describe('Directive: Teste da Diretiva ngBrToolsCnpjPattern', () => {
     spyOn(StringFormatter, 'maskedFormatter');
     const cnpj = '12345678900123';
     const input = maskedInputs[0].nativeElement as HTMLInputElement;
-    const event = new KeyboardEvent('input', null);
+    const event = new KeyboardEvent('keyup', null);
 
     input.value = cnpj;
     input.dispatchEvent(event);

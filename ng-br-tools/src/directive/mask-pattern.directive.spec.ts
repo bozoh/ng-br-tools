@@ -59,7 +59,7 @@ describe('Directive: Teste da Diretiva ngBrToolsMaskPattern', () => {
   it('Testando se a diretiva chama o método maskedFormatter da classe StringFormatter', () => {
     spyOn(StringFormatter, 'maskedFormatter');
     const cpf = '12345678900';
-    const event = new KeyboardEvent('input', null);
+    const event = new KeyboardEvent('keyup', null);
 
     const input1 = maskedInputs[0].nativeElement as HTMLInputElement;
     const mask1 = maskedInputs[0].injector.get(MaskPatternDirective).pattern;
@@ -76,7 +76,7 @@ describe('Directive: Teste da Diretiva ngBrToolsMaskPattern', () => {
       'valor de ngBrToolsMaskChars', () => {
     spyOn(StringFormatter, 'maskedFormatter');
     const data = '10101010';
-    const event = new KeyboardEvent('input', null);
+    const event = new KeyboardEvent('keyup', null);
 
     const input1 = maskedInputs[3].nativeElement as HTMLInputElement;
     const mask1 = maskedInputs[3].injector.get(MaskPatternDirective).pattern;

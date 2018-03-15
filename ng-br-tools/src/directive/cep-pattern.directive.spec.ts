@@ -47,7 +47,7 @@ describe('Directive: Teste da Diretiva (ngBrToolsCepPattern)', () => {
     spyOn(StringFormatter, 'maskedFormatter');
     const cep = '12345678';
     const input = maskedInputs[0].nativeElement as HTMLInputElement;
-    const event = new KeyboardEvent('input', null);
+    const event = new KeyboardEvent('keyup', null);
 
     input.value = cep;
     input.dispatchEvent(event);
