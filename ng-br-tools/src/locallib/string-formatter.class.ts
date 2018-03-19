@@ -11,6 +11,8 @@ export class StringFormatter {
   private unchangeMask: string;
   private maskCharsSet: Set<string> = new Set<string>();
   private readonly placeholderChar = '¬';
+  private readonly emptyString = '';
+  private caretPosition = 0;
 
   /**
    * Retorna um texto formatado usando uma máscara
@@ -22,17 +24,33 @@ export class StringFormatter {
    * igual a ['_']
    */
   public static maskedFormatter(txt: string, mask: string, maskChars: string[] = []): string {
-    const strFmt = new StringFormatter(mask, maskChars);
+    const strFmt = StringFormatter.getStringFormatter(mask, maskChars);
     return strFmt.format(txt);
   }
 
   /**
-   * Remove a formatação de uma máscara de um texto
-   * @param txt texto formatado pela máscara mask
+   * Retorna uma instância do StringFormatter
    * @param mask máscara
+   * @param maskChars (opcional) caracteres da máscara, por exemplo:
+   * A máscara DD/MM/AAAA tem que passar o maskChars como ['D', 'M', 'A'], para máscaras
+   * como __/__/____ o valor de maskChars é opcional pois é obtido automaticamente, ficando
+   * igual a ['_']
    */
-  public static clearFormat(txt: string, mask: string): string {
-    const strFmt = new StringFormatter(mask);
+  public static getStringFormatter(mask: string, maskChars: string[] = []): StringFormatter {
+    return new StringFormatter(mask, maskChars);
+  }
+
+  /**
+   * Remove a formatação de uma máscara de um texto
+   * @param txt Texto a ser formatado
+   * @param mask máscara
+   * @param maskChars (opcional) caracteres da máscara, por exemplo:
+   * A máscara DD/MM/AAAA tem que passar o maskChars como ['D', 'M', 'A'], para máscaras
+   * como __/__/____ o valor de maskChars é opcional pois é obtido automaticamente, ficando
+   * igual a ['_']
+   */
+  public static clearFormat(txt: string, mask: string, maskChars: string[] = []): string {
+    const strFmt = StringFormatter.getStringFormatter(mask, maskChars);
     return strFmt.stripMask(txt);
   }
 
@@ -54,10 +72,9 @@ export class StringFormatter {
       mask = mask.replace(re, this.placeholderChar);
     }
 
-    this.formattedMaskArray = mask.split('');
-    this.unchangeMask.split('').forEach((item) => this.maskCharsSet.add(item));
+    this.formattedMaskArray = mask.split(this.emptyString);
+    this.unchangeMask.split(this.emptyString).forEach((item) => this.maskCharsSet.add(item));
   }
-
 
   /**
    * Retorna um texto sem a formatação da máscara
@@ -65,8 +82,15 @@ export class StringFormatter {
    */
   public stripMask(maskedTxt: string): string {
     // criando uma cópia do maskedTxt e removendo a marcação
-    return [...maskedTxt.split('')].
-      filter(char => (!this.maskCharsSet.has(char))).join('');
+    return [...maskedTxt.split(this.emptyString)].
+      filter(char => (!this.maskCharsSet.has(char))).join(this.emptyString);
+  }
+
+  /**
+   * Retorna a posição que o cursor deve ter
+   */
+  public getCaretPosition(): number {
+    return this.caretPosition;
   }
 
   /**
@@ -74,34 +98,40 @@ export class StringFormatter {
    * @param txt texto a ser formatado
    */
   public format(txt: string): string {
-    const input = this.stripMask(txt).split('');
-    let formattedStr = this.formattedMaskArray.map((char) => {
+    this.caretPosition = 0;
+    const inputArray = this.stripMask(txt).split(this.emptyString);
+    let formattedStr = this.formattedMaskArray.map((char, index) => {
         if (char !== this.placeholderChar) {
+          // this.caretPosition += 1;
           return char;
         }
-        if (input.length === 0) {
+        if (inputArray.length === 0) {
           return char;
         }
-        return input.shift();
-    }).join('');
-    if (formattedStr.indexOf(this.placeholderChar) !== -1 ) {
-      const idx = formattedStr.indexOf(this.placeholderChar);
-      const fmt = formattedStr.substring(0, idx);
-      formattedStr = fmt + this.unchangeMask.substr(idx);
+        // this.caretPosition += 1;
+        return inputArray.shift();
+    }).join(this.emptyString);
+
+    const idx = formattedStr.indexOf(this.placeholderChar);
+    if (idx !== -1 ) {
+      this.caretPosition = idx;
+      formattedStr = formattedStr.substring(0, idx) + this.unchangeMask.substr(idx);
+    } else {
+      this.caretPosition = this.unchangeMask.length;
     }
     return formattedStr;
   }
 
   private getPlaceholderChar(str: string): string {
     const strCountMap: Map<string, number> = new Map();
-    let maxKey = '';
+    let maxKey = this.emptyString;
     for (const key of str) {
       if (!strCountMap.has(key)) {
         strCountMap.set(key, 1);
       } else {
         strCountMap.set(key, strCountMap.get(key) + 1);
       }
-      if (maxKey === '' || strCountMap.get(maxKey) < strCountMap.get(key)) {
+      if (maxKey === this.emptyString || strCountMap.get(maxKey) < strCountMap.get(key)) {
         maxKey = key;
       }
     }

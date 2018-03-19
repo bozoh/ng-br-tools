@@ -43,7 +43,9 @@ describe('Directive: Teste da Diretiva ngBrToolsCpfPattern', () => {
   });
 
   it('Testando se a diretiva chama o método maskedFormatter da classe StringFormatter', () => {
-    spyOn(StringFormatter, 'maskedFormatter');
+    const mockStrFmt = jasmine.createSpyObj('StringFormatter', ['format', 'getCaretPosition']);
+    spyOn(StringFormatter, 'getStringFormatter').and.returnValue(mockStrFmt);
+
     const cpf = '12345678900';
     const input = maskedInputs[0].nativeElement as HTMLInputElement;
     const event = new KeyboardEvent('keyup', null);
@@ -52,8 +54,12 @@ describe('Directive: Teste da Diretiva ngBrToolsCpfPattern', () => {
     input.dispatchEvent(event);
     fixture.detectChanges();
 
-    expect(StringFormatter.maskedFormatter)
-      .toHaveBeenCalledWith(cpf, CPF_MASK, [ ]);
+    expect(StringFormatter.getStringFormatter)
+    .toHaveBeenCalledWith(CPF_MASK, [ ]);
+    expect(mockStrFmt.format)
+    .toHaveBeenCalledWith(cpf);
+    expect(mockStrFmt.getCaretPosition).toHaveBeenCalled();
+
   });
 });
 

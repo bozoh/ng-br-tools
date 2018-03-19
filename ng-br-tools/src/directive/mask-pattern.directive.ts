@@ -25,12 +25,22 @@ export class MaskPatternDirective implements OnInit {
   @HostListener('keyup', ['$event'])
   onInput(event: KeyboardEvent) {
     const input = (event.target as HTMLInputElement);
+    let oldStart = input.selectionStart;
+    let oldEnd = input.selectionEnd;
+    // const oldInptLen = input.value.length;
     let maskChars: string[] = [];
     if (this.maskChars) {
       maskChars = maskChars.concat(this.maskChars.split(','));
     }
-    // REMOVE
-    // console.error('INPT VALUE: ' + input.value + ' <=> Pattern ' + this.pattern + ' - maskChars:' + maskChars);
-    input.value = StringFormatter.maskedFormatter(input.value, this.pattern, maskChars);
+    const strFmt = StringFormatter.getStringFormatter(this.pattern, maskChars);
+    input.value = strFmt.format(input.value);
+
+    if (oldEnd + 1 === strFmt.getCaretPosition()) {
+      oldStart += 1;
+      oldEnd += 1;
+    }
+    input.selectionStart = oldStart;
+    input.selectionEnd = oldEnd;
   }
+
 }

@@ -1,4 +1,3 @@
-/* tslint:disable:no-unused-variable */
 import {  ComponentFixture, TestBed} from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -45,7 +44,9 @@ describe('Directive: Teste da Diretiva ngBrToolsCnpjPattern', () => {
   });
 
   it('Testando se a diretiva chama o método maskedFormatter da classe StringFormatter', () => {
-    spyOn(StringFormatter, 'maskedFormatter');
+    const mockStrFmt = jasmine.createSpyObj('StringFormatter', ['format', 'getCaretPosition']);
+    spyOn(StringFormatter, 'getStringFormatter').and.returnValue(mockStrFmt);
+
     const cnpj = '12345678900123';
     const input = maskedInputs[0].nativeElement as HTMLInputElement;
     const event = new KeyboardEvent('keyup', null);
@@ -54,8 +55,12 @@ describe('Directive: Teste da Diretiva ngBrToolsCnpjPattern', () => {
     input.dispatchEvent(event);
     fixture.detectChanges();
 
-    expect(StringFormatter.maskedFormatter)
-      .toHaveBeenCalledWith(cnpj, CNPJ_MASK, [ ]);
+
+    expect(StringFormatter.getStringFormatter)
+    .toHaveBeenCalledWith(CNPJ_MASK, [ ]);
+    expect(mockStrFmt.format)
+    .toHaveBeenCalledWith(cnpj);
+    expect(mockStrFmt.getCaretPosition).toHaveBeenCalled();
   });
 });
 

@@ -44,7 +44,8 @@ describe('Directive: Teste da Diretiva (ngBrToolsCepPattern)', () => {
   });
 
   it('Testando se a diretiva chama o método maskedFormatter da classe StringFormatter', () => {
-    spyOn(StringFormatter, 'maskedFormatter');
+    const mockStrFmt = jasmine.createSpyObj('StringFormatter', ['format', 'getCaretPosition']);
+    spyOn(StringFormatter, 'getStringFormatter').and.returnValue(mockStrFmt);
     const cep = '12345678';
     const input = maskedInputs[0].nativeElement as HTMLInputElement;
     const event = new KeyboardEvent('keyup', null);
@@ -53,8 +54,11 @@ describe('Directive: Teste da Diretiva (ngBrToolsCepPattern)', () => {
     input.dispatchEvent(event);
     fixture.detectChanges();
 
-    expect(StringFormatter.maskedFormatter)
-      .toHaveBeenCalledWith(cep, CEP_MASK, [ ]);
+    expect(StringFormatter.getStringFormatter)
+    .toHaveBeenCalledWith(CEP_MASK, [ ]);
+    expect(mockStrFmt.format)
+    .toHaveBeenCalledWith(cep);
+    expect(mockStrFmt.getCaretPosition).toHaveBeenCalled();
   });
 });
 

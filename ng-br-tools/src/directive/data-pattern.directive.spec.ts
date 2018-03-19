@@ -45,7 +45,8 @@ describe('Directive: Teste da Diretiva ngBrToolsDataPattern', () => {
   });
 
   it('Testando se a diretiva chama o método maskedFormatter da classe StringFormatter', () => {
-    spyOn(StringFormatter, 'maskedFormatter');
+    const mockStrFmt = jasmine.createSpyObj('StringFormatter', ['format', 'getCaretPosition']);
+    spyOn(StringFormatter, 'getStringFormatter').and.returnValue(mockStrFmt);
     const data = '10101010';
     const input = maskedInputs[0].nativeElement as HTMLInputElement;
     const event = new KeyboardEvent('keyup', null);
@@ -54,8 +55,12 @@ describe('Directive: Teste da Diretiva ngBrToolsDataPattern', () => {
     input.dispatchEvent(event);
     fixture.detectChanges();
 
-    expect(StringFormatter.maskedFormatter)
-      .toHaveBeenCalledWith(data, DATA_MASK, ['D', 'M', 'A']);
+    expect(StringFormatter.getStringFormatter)
+    .toHaveBeenCalledWith(DATA_MASK, ['D', 'M', 'A']);
+    expect(mockStrFmt.format)
+    .toHaveBeenCalledWith(data);
+    expect(mockStrFmt.getCaretPosition).toHaveBeenCalled();
+
   });
 });
 

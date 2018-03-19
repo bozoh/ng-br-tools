@@ -57,7 +57,8 @@ describe('Directive: Teste da Diretiva ngBrToolsMaskPattern', () => {
   });
 
   it('Testando se a diretiva chama o método maskedFormatter da classe StringFormatter', () => {
-    spyOn(StringFormatter, 'maskedFormatter');
+    const mockStrFmt = jasmine.createSpyObj('StringFormatter', ['format', 'getCaretPosition']);
+    spyOn(StringFormatter, 'getStringFormatter').and.returnValue(mockStrFmt);
     const cpf = '12345678900';
     const event = new KeyboardEvent('keyup', null);
 
@@ -68,13 +69,18 @@ describe('Directive: Teste da Diretiva ngBrToolsMaskPattern', () => {
     input1.dispatchEvent(event);
     fixture.detectChanges();
 
-    expect(StringFormatter.maskedFormatter)
-      .toHaveBeenCalledWith(cpf, mask1, [ ]);
+    expect(StringFormatter.getStringFormatter)
+      .toHaveBeenCalledWith(mask1, [ ]);
+    expect(mockStrFmt.format)
+      .toHaveBeenCalledWith(cpf);
+    expect(mockStrFmt.getCaretPosition).toHaveBeenCalled();
   });
 
   it('Testando se a diretiva chama o método maskedFormatter da classe StringFormatter com o ' +
       'valor de ngBrToolsMaskChars', () => {
-    spyOn(StringFormatter, 'maskedFormatter');
+    const mockStrFmt = jasmine.createSpyObj('StringFormatter', ['format', 'getCaretPosition']);
+    spyOn(StringFormatter, 'getStringFormatter').and.returnValue(mockStrFmt);
+
     const data = '10101010';
     const event = new KeyboardEvent('keyup', null);
 
@@ -87,8 +93,11 @@ describe('Directive: Teste da Diretiva ngBrToolsMaskPattern', () => {
     input1.dispatchEvent(event);
     fixture.detectChanges();
 
-    expect(StringFormatter.maskedFormatter)
-      .toHaveBeenCalledWith(data, mask1, maskCharsArray);
+    expect(StringFormatter.getStringFormatter)
+      .toHaveBeenCalledWith(mask1, maskCharsArray);
+    expect(mockStrFmt.format)
+      .toHaveBeenCalledWith(data);
+    expect(mockStrFmt.getCaretPosition).toHaveBeenCalled();
   });
 
 
