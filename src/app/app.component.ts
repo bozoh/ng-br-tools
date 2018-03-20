@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Injectable, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { Endereco } from 'ng-br-tools';
+import { Endereco, CPFValidator } from 'ng-br-tools';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   hasEndereco = false;
   error: string;
   hasError = false;
+  cpf = '';
 
   doEndereco(e: Endereco) {
     console.dir(e);

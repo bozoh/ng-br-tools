@@ -25,6 +25,7 @@ import { LstEstadoDirective } from './directive/lst-estado.directive';
     CpfPatternDirective,
     CnpjPatternDirective,
     DataPatternDirective,
+    LstEstadoDirective,
     MaskPatternPipe,
     CepPatternPipe,
     CpfPatternPipe,
@@ -32,7 +33,6 @@ import { LstEstadoDirective } from './directive/lst-estado.directive';
     DataPatternPipe,
     CPFValidator,
     CNPJValidator,
-    LstEstadoDirective,
   ],
   imports: [
     CommonModule
@@ -45,6 +45,7 @@ import { LstEstadoDirective } from './directive/lst-estado.directive';
     CpfPatternDirective,
     CnpjPatternDirective,
     DataPatternDirective,
+    LstEstadoDirective,
     MaskPatternPipe,
     CepPatternPipe,
     CpfPatternPipe,
@@ -52,7 +53,6 @@ import { LstEstadoDirective } from './directive/lst-estado.directive';
     DataPatternPipe,
     CPFValidator,
     CNPJValidator,
-    LstEstadoDirective,
   ],
 })
 export class NgBrToolsModule { }
