@@ -8,6 +8,7 @@ Utilitário feito em angular 4/5 específico para sistemas brasileiros.
 
 1. Validador e Formatador de CPF
 1. Validador e Formatador de CNPJ
+1. Formatador de data (DD/MM/AAAA)
 1. Formatador de texto genérico
 1. Formatador de CEP e auxílio para a busca do CEP
 1. Lista de estados
