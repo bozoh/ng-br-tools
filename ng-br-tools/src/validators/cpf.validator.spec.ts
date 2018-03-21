@@ -3,7 +3,7 @@ import { CPFValidator } from './cpf.validator';
 import { FormControl } from '@angular/forms';
 import { BrValidator } from '../locallib/br-validator.class';
 
-describe('Validator: CPFValidator', () => {
+describe('Validators: (ngBrToolsCpfValidator)', () => {
   // tslint:disable-next-line:prefer-const
   let cpfValidatorDirective: CPFValidator;
   const invalidResponse = {

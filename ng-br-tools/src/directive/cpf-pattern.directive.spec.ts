@@ -10,13 +10,13 @@ import { CpfPatternDirective } from './cpf-pattern.directive';
   // tslint:disable-next-line:component-selector
   template: `
     <input name="test-cpf" type="text"
-      cpf-pattern />
+     ngBrToolsCpfPattern />
     <input name="no-mask" type="text" />
   `
 })
 class TestCpfPatternDirectiveComponent {}
 
-describe('Directive: Teste da Diretiva cpf-pattern', () => {
+describe('Directive: Teste da Diretiva ngBrToolsCpfPattern', () => {
   let fixture: ComponentFixture<TestCpfPatternDirectiveComponent>;
   let maskedInputs: DebugElement[];
 
@@ -37,24 +37,29 @@ describe('Directive: Teste da Diretiva cpf-pattern', () => {
     expect(maskedInputs.length).toEqual(1);
   });
 
-  it ('Testando se as máscaras estão atribuidas corretamente', () => {
-    // cons maskDir = maskedInputs[0].injector.get(MaskPatternDirective) as MaskPatternDirective;
+  it ('Testando se as máscaras estão atribuídas corretamente', () => {
     const mask1 = maskedInputs[0].injector.get(CpfPatternDirective).pattern;
     expect(mask1).toBe(CPF_MASK);
   });
 
   it('Testando se a diretiva chama o método maskedFormatter da classe StringFormatter', () => {
-    spyOn(StringFormatter, 'maskedFormatter');
+    const mockStrFmt = jasmine.createSpyObj('StringFormatter', ['format', 'getCaretPosition']);
+    spyOn(StringFormatter, 'getStringFormatter').and.returnValue(mockStrFmt);
+
     const cpf = '12345678900';
     const input = maskedInputs[0].nativeElement as HTMLInputElement;
-    const event = new KeyboardEvent('input', null);
+    const event = new KeyboardEvent('keyup', null);
 
     input.value = cpf;
     input.dispatchEvent(event);
     fixture.detectChanges();
 
-    expect(StringFormatter.maskedFormatter)
-      .toHaveBeenCalledWith(cpf, CPF_MASK);
+    expect(StringFormatter.getStringFormatter)
+    .toHaveBeenCalledWith(CPF_MASK, [ ]);
+    expect(mockStrFmt.format)
+    .toHaveBeenCalledWith(cpf);
+    expect(mockStrFmt.getCaretPosition).toHaveBeenCalled();
+
   });
 });
 

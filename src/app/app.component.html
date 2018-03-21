@@ -3,36 +3,29 @@
     <div class="col-xs-12">
       <form #f="ngForm">
         <div class="row">
+            <app-cpf></app-cpf>
+        </div>
+        <div class="row">
           <div class="col-sm-5 form-group">
-            <label for="cpf">CPF</label>
-              <input type="text" name="cpf" id="cpf"
-              [placeholder]="'+## (##) #-####-####'"
-              cpfValidator
-              ngModel>
+            <label for="data">Data</label>
+              <input type="text" name="data" id="data"
+              ngBrToolsDataPattern
+              ngModel
+              >
           </div>
         </div>
         <div class="row">
           <div class="col-sm-5 form-group">
             <label for="cep">CEP</label>
-            <ng-br-tools-cep class="teste"
-              [placeholder]="'__.___-___'"
+            <input ngBrToolsCepSearch
               (onEndereco)="doEndereco($event)"
-              (onError)="doError($event)">
-              ansmnamsn2  qwuqw
-            </ng-br-tools-cep>
+              (onError)="doError($event)" >
           </div>
         </div>
         <div class="row">
           <div class="col-sm-5 form-group">
             <label for="estados"></label>
-            <ng-br-tools-estados
-              [hide-flags]="false"
-              [hide-nomes]="true"
-              [hide-siglas]="false"
-              [flg-position]="'left'"
-              [txt-position]="'right'"
-              [order-by]="'nome'">
-            </ng-br-tools-estados>
+
           </div>
         </div>
         <div class="row">
@@ -46,7 +39,7 @@
   </div>
   <div class="row">
     <div class="col-sm-6" *ngIf="hasEndereco">
-        <h3>{{endereco.cep}}</h3>
+        <h3>{{endereco.cep | ngBrToolsCepPatternPipe}}</h3>
         <p>{{endereco.endereco}}</p>
         <p>{{endereco.complemento}}</p>
         <p>{{endereco.complemento2}}</p>

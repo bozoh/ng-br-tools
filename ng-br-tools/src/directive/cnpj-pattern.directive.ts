@@ -4,7 +4,7 @@ import { CNPJ_MASK } from '../locallib/string-formatter.class';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[cnpj-pattern]'
+  selector: '[ngBrToolsCnpjPattern]'
 })
 export class CnpjPatternDirective extends MaskPatternDirective {
 

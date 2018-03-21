@@ -4,7 +4,7 @@ import { BrValidator } from '../locallib/br-validator.class';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[cnpjValidator][ngModel],[cnpjValidator][formControl],[cnpjValidator][formControlName]',
+  selector: '[ngBrToolsCnpjValidator][ngModel],[ngBrToolsCnpjValidator][formControl],[ngBrToolsCnpjValidator][formControlName]',
   providers: [
     {
       provide: NG_VALIDATORS,
@@ -19,8 +19,10 @@ export class CNPJValidator implements Validator {
 
   validate(c: FormControl): { [key: string]: any } {
     if (c.value && c.value.length > 0) {
-      const regex = /\.|-|\//gi;
-      const value = c.value.replace(regex, '');
+      // Limpando qualquer caracter de formatação, só importa os números
+      const value = c.value.split('').filter(
+        (char) => !isNaN(Number(char))
+      ).join('');
 
       if (BrValidator.validaCnpj(value)) {
         return null;

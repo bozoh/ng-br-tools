@@ -43,3 +43,6 @@ Thumbs.db
 
 #node files
 package-lock.json
+
+.vscode/
+ng-br-tools/README.md

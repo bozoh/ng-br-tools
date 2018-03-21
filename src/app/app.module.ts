@@ -1,7 +1,8 @@
+import { CpfComponent } from './compoments/cpf/cpf.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 import { NgBrToolsModule, CEP_SERVICE,
@@ -11,15 +12,15 @@ import { NgBrToolsModule, CEP_SERVICE,
   import { LstEstadosSimplesService } from './services/lst-estados-simples.service';
   import { LstEstadosIBGEService } from './services/lst-estados-ibge.service';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
+    CpfComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     NgBrToolsModule
   ],

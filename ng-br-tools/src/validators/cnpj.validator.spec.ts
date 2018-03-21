@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { CNPJValidator } from './cnpj.validator';
 import { BrValidator } from '../locallib/br-validator.class';
 
-describe('Validator: CNPJValidator', () => {
+describe('Validators: (ngBrToolsCnpjValidator)', () => {
   // tslint:disable-next-line:prefer-const
   let cnpjValidatorDirective: CNPJValidator;
   const invalidResponse = {

@@ -1,5 +1,5 @@
-import { LstEstadoDirective } from './directive/lst-estado.directive';
-import { EstadoComponent } from './components/estado/estado.component';
+import { DataPatternPipe } from './pipes/data-pattern.pipe';
+import { DataPatternDirective } from './directive/data-pattern.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -13,43 +13,46 @@ import { CnpjPatternDirective } from './directive/cnpj-pattern.directive';
 import { CpfPatternDirective } from './directive/cpf-pattern.directive';
 import { CepPatternDirective } from './directive/cep-pattern.directive';
 import { MaskPatternDirective } from './directive/mask-pattern.directive';
-import { CepComponent } from './components/cep/cep.component';
+import { CepSearchDirective } from './directive/cep-search.directive';
+import { LstEstadoDirective } from './directive/lst-estado.directive';
 
 
 @NgModule({
   declarations: [
-    CepComponent,
     MaskPatternDirective,
     CepPatternDirective,
+    CepSearchDirective,
     CpfPatternDirective,
     CnpjPatternDirective,
+    DataPatternDirective,
+    LstEstadoDirective,
     MaskPatternPipe,
     CepPatternPipe,
     CpfPatternPipe,
     CnpjPatternPipe,
+    DataPatternPipe,
     CPFValidator,
     CNPJValidator,
-    EstadoComponent,
-    LstEstadoDirective,
   ],
   imports: [
     CommonModule
   ],
   providers: [],
   exports:  [
-    CepComponent,
     MaskPatternDirective,
     CepPatternDirective,
+    CepSearchDirective,
     CpfPatternDirective,
     CnpjPatternDirective,
+    DataPatternDirective,
+    LstEstadoDirective,
     MaskPatternPipe,
     CepPatternPipe,
     CpfPatternPipe,
     CnpjPatternPipe,
+    DataPatternPipe,
     CPFValidator,
     CNPJValidator,
-    EstadoComponent,
-    LstEstadoDirective,
   ],
 })
 export class NgBrToolsModule { }

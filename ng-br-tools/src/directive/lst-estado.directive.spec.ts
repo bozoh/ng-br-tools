@@ -12,8 +12,8 @@ import { ESTADO_SERVICE, EstadoServiceFactory } from './../services/estado/estad
 @Component({
   // tslint:disable-next-line:component-selector
   template: `
-  <select (ng-br-tools-lst-estados)="setEstados($event)"></select>
-  <div ng-br-tools-lst-estados></div>
+  <select (ngBrToolsListEstados)="setEstados($event)"></select>
+  <div ngBrToolsListEstados></div>
   `
 })
 class TestLstEstadoDirectiveComponent {
@@ -32,7 +32,7 @@ class MockedEstadoService implements EstadoServiceIntfce {
   }
 }
 
-describe('Directive: LstEstadoDirective (ng-br-tools-lst-estados)', () => {
+describe('Directive: LstEstadoDirective (ngBrToolsListEstados)', () => {
   let fixture: ComponentFixture<TestLstEstadoDirectiveComponent>;
   let lstEstadoComponent: TestLstEstadoDirectiveComponent;
   let directive: LstEstadoDirective;
@@ -97,7 +97,7 @@ describe('Directive: LstEstadoDirective (ng-br-tools-lst-estados)', () => {
     expect(estados[1].sigla).toEqual('TA');
   }));
 
-  it('Deve por em ordem de nome do estado se o order-by="nome"', fakeAsync(() => {
+  it('Deve por em ordem de nome do estado se o ngBrToolsOrderBy="nome"', fakeAsync(() => {
     let estados: Estado[] = [];
     directive.orderBy = 'nome';
     directive.onEstados.subscribe((e) => estados = e);
@@ -109,7 +109,7 @@ describe('Directive: LstEstadoDirective (ng-br-tools-lst-estados)', () => {
     expect(estados[1].nome).toEqual('Teste-02');
   }));
 
-  it('Deve por em ordem de sigla do estado se o order-by="sigla"', fakeAsync(() => {
+  it('Deve por em ordem de sigla do estado se o ngBrToolsOrderBy="sigla"', fakeAsync(() => {
     let estados: Estado[] = [];
     directive.orderBy = 'sigla';
     directive.onEstados.subscribe((e) => estados = e);
