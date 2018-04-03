@@ -19,6 +19,4 @@ export * from './services/cep/endereco.model';
 export * from './directive/data-pattern.directive';
 export * from './pipes/data-pattern.pipe';
 export * from './validators/ng-br-tools-validators';
-
-
 export * from './ng-br-tools.module';
