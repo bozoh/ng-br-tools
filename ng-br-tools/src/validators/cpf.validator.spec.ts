@@ -6,11 +6,7 @@ import { BrValidator } from '../locallib/br-validator.class';
 describe('Validators: (ngBrToolsCpfValidator)', () => {
   // tslint:disable-next-line:prefer-const
   let cpfValidatorDirective: CPFValidator;
-  const invalidResponse = {
-    CPFValidator: {
-      valid: false
-    }
-  };
+  const invalidResponse = {'cpf': true };
 
   beforeEach(() => {
     cpfValidatorDirective = new CPFValidator();

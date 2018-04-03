@@ -6,11 +6,8 @@ import { BrValidator } from '../locallib/br-validator.class';
 describe('Validators: (ngBrToolsCnpjValidator)', () => {
   // tslint:disable-next-line:prefer-const
   let cnpjValidatorDirective: CNPJValidator;
-  const invalidResponse = {
-    CNPJValidator: {
-      valid: false
-    }
-  };
+  const invalidResponse = { 'cnpj': true };
+
 
   beforeEach(() => {
     cnpjValidatorDirective = new CNPJValidator();

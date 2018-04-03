@@ -3,6 +3,7 @@ import { DataPatternDirective } from './directive/data-pattern.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { NgBrToolsValidators } from './validators/ng-br-tools-validators';
 import { CNPJValidator } from './validators/cnpj.validator';
 import { CPFValidator } from './validators/cpf.validator';
 import { MaskPatternPipe } from './pipes/mask-pattern.pipe';
@@ -53,6 +54,7 @@ import { LstEstadoDirective } from './directive/lst-estado.directive';
     DataPatternPipe,
     CPFValidator,
     CNPJValidator,
+    NgBrToolsValidators
   ],
 })
 export class NgBrToolsModule { }
